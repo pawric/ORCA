@@ -74,7 +74,8 @@ type
   TPlanowanie = class(TObject)
   private
     FZasoby: TZasoby;
-    function DateBetween(AKiedy, AValue, AValue1: TDateTime): Boolean;
+    function DateBetween(ADataPorownywana, ADataPoczatkowa, ADataKoncowa:
+        TDateTime): Boolean;
   public
     constructor Create();
     Destructor Destroy; override;
@@ -146,9 +147,10 @@ begin
   inherited;
 end;
 
-function TPlanowanie.DateBetween(AKiedy, AValue, AValue1: TDateTime): Boolean;
+function TPlanowanie.DateBetween(ADataPorownywana, ADataPoczatkowa,
+    ADataKoncowa: TDateTime): Boolean;
 begin
-  Result := (CompareDate(AKiedy, AValue) in [0,1]) and ((CompareDate(AKiedy, AValue1) = -1) or (CompareDate(AKiedy, AValue1) = 0));
+  Result := (CompareDate(ADataPorownywana, ADataPoczatkowa) in [0,1]) and ((CompareDate(ADataPorownywana, ADataKoncowa) = -1) or (CompareDate(ADataPorownywana, ADataKoncowa) = 0));
 end;
 
 function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String;

@@ -20,7 +20,7 @@ const
   );
 
 type
-  TElement = class(TObject)
+  TRezerwacja = class(TObject)
   private
     FNumerKlienta: String;
     FNumerRejestracji: String;
@@ -82,7 +82,7 @@ type
     constructor Create();
     Destructor Destroy; override;
     function WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi: TRodzajUslugi;
-        aNumerKlienta: String; aRodzajElementu: TTypElementu): TElement;
+        aNumerKlienta: String; aRodzajElementu: TTypElementu): TRezerwacja;
     function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
     function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
     function PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi;
@@ -125,7 +125,7 @@ begin
   begin
     for j := (FZasoby.Items[i] as TZasob).FElementy.Count - 1 downto 0 do
     begin
-      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TElement) do
+      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja) do
       begin
         if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
         begin
@@ -165,7 +165,7 @@ begin
   begin
     for j := 0 to (FZasoby.Items[i] as TZasob).FElementy.Count - 1 do
     begin
-      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TElement) do
+      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja) do
       begin
         if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
         begin
@@ -182,7 +182,7 @@ function TPlanowanie.PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi:
     TRodzajUslugi; aKiedy, aNaKiedy: TDateTime; aRodzajElementu: TTypElementu):
     Boolean;
 var
-  v_NowyElement: TElement;
+  v_NowyElement: TRezerwacja;
 begin
   v_NowyElement := WykonajRezerwacje(aNaKiedy, aRodzajUslugi, aNumerKlienta, aRodzajElementu);
   if Assigned(v_NowyElement) then
@@ -191,7 +191,7 @@ end;
 
 function TPlanowanie.WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi:
     TRodzajUslugi; aNumerKlienta: String; aRodzajElementu: TTypElementu):
-    TElement;
+    TRezerwacja;
 var
   i, j: Integer;
 begin
@@ -205,7 +205,7 @@ begin
         //lista elementow na stonowisku jest pusta wiec mozna uzyc wlasciwego stanowiska
         if (FZasoby.Items[i] as TZasob).FElementy.Count = 0 then
         begin
-          Result := TElement.Create();
+          Result := TRezerwacja.Create();
           Result.NumerKlienta := aNumerKlienta;
           Result.NumerRejestracji := '';
           Result.RozpoczeciePrac := aKiedy;
@@ -218,10 +218,10 @@ begin
         begin
           for j := 0 to (FZasoby.Items[i] as TZasob).FElementy.Count-1 do
           begin
-             if not DateBetween(aKiedy, ((FZasoby.Items[i] as TZasob).FElementy[j] as TElement).RozpoczeciePrac,
-              ((FZasoby.Items[i] as TZasob).FElementy[j] as TElement).ZakonczeniePrac) then
+             if not DateBetween(aKiedy, ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja).RozpoczeciePrac,
+              ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja).ZakonczeniePrac) then
              begin
-                Result := TElement.Create();
+                Result := TRezerwacja.Create();
                 Result.NumerKlienta := aNumerKlienta;
                 Result.NumerRejestracji := '';
                 Result.RozpoczeciePrac := aKiedy;
@@ -269,37 +269,37 @@ begin
 
 end;
 
-procedure TElement.SetNumerKlienta(const aValue: String);
+procedure TRezerwacja.SetNumerKlienta(const aValue: String);
 begin
   FNumerKlienta := aValue;
 end;
 
-procedure TElement.SetNumerRejestracji(const aValue: String);
+procedure TRezerwacja.SetNumerRejestracji(const aValue: String);
 begin
   FNumerRejestracji := aValue;
 end;
 
-procedure TElement.SetRodzaj(const aValue: TTypElementu);
+procedure TRezerwacja.SetRodzaj(const aValue: TTypElementu);
 begin
   FRodzaj := aValue;
 end;
 
-procedure TElement.SetRodzajUslugi(const aValue: TRodzajUslugi);
+procedure TRezerwacja.SetRodzajUslugi(const aValue: TRodzajUslugi);
 begin
   FRodzajUslugi := aValue;
 end;
 
-procedure TElement.SetRozpoczeciePrac(const aValue: TDateTime);
+procedure TRezerwacja.SetRozpoczeciePrac(const aValue: TDateTime);
 begin
   FRozpoczeciePrac := aValue;
 end;
 
-procedure TElement.SetStatus(const aValue: TStatusElementu);
+procedure TRezerwacja.SetStatus(const aValue: TStatusElementu);
 begin
   FStatus := aValue;
 end;
 
-procedure TElement.SetZakonczeniePrac(const aValue: TDateTime);
+procedure TRezerwacja.SetZakonczeniePrac(const aValue: TDateTime);
 begin
   FZakonczeniePrac := aValue;
 end;

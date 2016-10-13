@@ -11,9 +11,9 @@ type
 
   TGraficznyRodzajElementu = class(TElementGraficzny)
   private
-    Felement: TElement;
+    Felement: TRezerwacja;
   public
-    constructor Create(const aElement: TElement);
+    constructor Create(const aElement: TRezerwacja);
   end;
 
   TGraficznyRodzajUslugi = class(TElementGraficzny)
@@ -39,7 +39,7 @@ implementation
 
 { TGraficznyRodzajElementu }
 
-constructor TGraficznyRodzajElementu.Create(const aElement: TElement);
+constructor TGraficznyRodzajElementu.Create(const aElement: TRezerwacja);
 begin
   inherited Create();
   Felement := aElement;

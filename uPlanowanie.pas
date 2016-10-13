@@ -38,15 +38,12 @@ type
     procedure SetZakonczeniePrac(const aValue: TDateTime);
   public
     property NumerKlienta: String read FNumerKlienta write SetNumerKlienta;
-    property NumerRejestracji: String read FNumerRejestracji write
-        SetNumerRejestracji;
+    property NumerRejestracji: String read FNumerRejestracji write SetNumerRejestracji;
     property Rodzaj: TTypElementu read FRodzaj write SetRodzaj;
     property RodzajUslugi: TRodzajUslugi read FRodzajUslugi write SetRodzajUslugi;
-    property RozpoczeciePrac: TDateTime read FRozpoczeciePrac write
-        SetRozpoczeciePrac;
+    property RozpoczeciePrac: TDateTime read FRozpoczeciePrac write SetRozpoczeciePrac;
     property Status: TStatusElementu read FStatus write SetStatus;
-    property ZakonczeniePrac: TDateTime read FZakonczeniePrac write
-        SetZakonczeniePrac;
+    property ZakonczeniePrac: TDateTime read FZakonczeniePrac write SetZakonczeniePrac;
   end;
 
   TZasob = class(TObject)
@@ -77,7 +74,7 @@ type
   TPlanowanie = class(TObject)
   private
     FZasoby: TZasoby;
-    function DateBetween(aKiedy, aValue, Value1: TDateTime): Boolean;
+    function DateBetween(AKiedy, AValue, AValue1: TDateTime): Boolean;
   public
     constructor Create();
     Destructor Destroy; override;
@@ -149,9 +146,9 @@ begin
   inherited;
 end;
 
-function TPlanowanie.DateBetween(aKiedy, aValue, Value1: TDateTime): Boolean;
+function TPlanowanie.DateBetween(AKiedy, AValue, AValue1: TDateTime): Boolean;
 begin
-  Result := (CompareDate(aKiedy, aValue) in [0,1]) and ((CompareDate(aKiedy, Value1) = -1) or (CompareDate(aKiedy, Value1) = 0));
+  Result := (CompareDate(AKiedy, AValue) in [0,1]) and ((CompareDate(AKiedy, AValue1) = -1) or (CompareDate(AKiedy, AValue1) = 0));
 end;
 
 function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String;

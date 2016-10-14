@@ -3,16 +3,7 @@ unit uPlanowanie;
 interface
 
 uses
-  Classes, Contnrs, uZasob;
-
-type
-  TTypElementu = (teSamochod, teMotocykl, teRower);
-  TTypyElementow = set of TTypElementu;
-
-  TRodzajUslugi = (teNaprawa, teMycie, teKonserwacja);
-  TRodzajeUslug = set of TRodzajUslugi;
-
-  TStatusElementu = (seRezerwacja, sePotwierdzonePrzybycie, seWykonywanieUslugi);
+  Classes, Contnrs, uZasob, uPlanowanieTypes;
 
 const
   CzasWykonaniaUslugi: array[teNaprawa..teKonserwacja] of integer = (

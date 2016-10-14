@@ -75,14 +75,21 @@ type
         SetWykonaywaneUslugi;
   end;
 
+  TZasobLista = class(TObjectList)
+  private
+    function GetItems(Index: Integer): TZasob;
+    procedure SetItems(Index: Integer; const aValue: TZasob);
+  public
+    property Items[Index: Integer]: TZasob read GetItems write SetItems; default;
+  end;
 
   TZasoby = class(TObject)
   private
-    FItems: TObjectList;
+    FItems: TZasobLista;
   public
     constructor Create();
     destructor Destroy; Override;
-    property Items: TObjectList read FItems;
+    property Items: TZasobLista read FItems;
   end;
 
   TPlanowanie = class(TObject)
@@ -112,7 +119,7 @@ uses
 constructor TZasoby.Create;
 begin
   inherited;
-  FItems := TObjectList.Create();
+  FItems := TZasobLista.Create();
 end;
 
 destructor TZasoby.Destroy;
@@ -132,13 +139,13 @@ begin
   Result := False;
   for i := 0 to FZasoby.Items.Count -1 do
   begin
-    for j := (FZasoby.Items[i] as TZasob).FElementy.Count - 1 downto 0 do
+    for j := FZasoby.Items[i].FElementy.Count - 1 downto 0 do
     begin
-      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja) do
+      with (FZasoby.Items[i].FElementy[j] as TRezerwacja) do
       begin
         if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
         begin
-          (FZasoby.Items[i] as TZasob).FElementy.Remove((FZasoby.Items[i] as TZasob).FElementy[j]);
+          FZasoby.Items[i].FElementy.Remove(FZasoby.Items[i].FElementy[j]);
           Break;
         end;
       end;
@@ -173,9 +180,9 @@ begin
   Result := False;
   for i := 0 to FZasoby.Items.Count -1 do
   begin
-    for j := 0 to (FZasoby.Items[i] as TZasob).FElementy.Count - 1 do
+    for j := 0 to FZasoby.Items[i].FElementy.Count - 1 do
     begin
-      with ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja) do
+      with (FZasoby.Items[i].FElementy[j] as TRezerwacja) do
       begin
         if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
         begin
@@ -208,12 +215,12 @@ begin
   Result := nil;
   for i := 0 to FZasoby.Items.Count -1 do
   begin
-    if (aRodzajUslugi in (FZasoby.Items[i] as TZasob).FWykonaywaneUslugi) and (aRodzajElementu in (FZasoby.Items[i] as TZasob).FAkceptowaneElementy) then
+    if (aRodzajUslugi in FZasoby.Items[i].FWykonaywaneUslugi) and (aRodzajElementu in FZasoby.Items[i].FAkceptowaneElementy) then
     begin
-      if DateBetween(aKiedy, (FZasoby.Items[i] as TZasob).FDostepnyOd, (FZasoby.Items[i] as TZasob).FDostepnyDo) then
+      if DateBetween(aKiedy, FZasoby.Items[i].FDostepnyOd, FZasoby.Items[i].FDostepnyDo) then
       begin
         //lista elementow na stonowisku jest pusta wiec mozna uzyc wlasciwego stanowiska
-        if (FZasoby.Items[i] as TZasob).FElementy.Count = 0 then
+        if FZasoby.Items[i].FElementy.Count = 0 then
         begin
           Result := TRezerwacja.Create();
           Result.NumerKlienta := aNumerKlienta;
@@ -222,14 +229,14 @@ begin
           Result.ZakonczeniePrac := IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10);
           Result.RodzajUslugi := aRodzajUslugi;
           Result.Status := seRezerwacja;
-          (FZasoby.Items[i] as TZasob).FElementy.Add(Result);
+          FZasoby.Items[i].FElementy.Add(Result);
         end
         else
         begin
-          for j := 0 to (FZasoby.Items[i] as TZasob).FElementy.Count-1 do
+          for j := 0 to FZasoby.Items[i].FElementy.Count-1 do
           begin
-             if not DateBetween(aKiedy, ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja).RozpoczeciePrac,
-              ((FZasoby.Items[i] as TZasob).FElementy[j] as TRezerwacja).ZakonczeniePrac) then
+             if not DateBetween(aKiedy, (FZasoby.Items[i].FElementy[j] as TRezerwacja).RozpoczeciePrac,
+              (FZasoby.Items[i].FElementy[j] as TRezerwacja).ZakonczeniePrac) then
              begin
                 Result := TRezerwacja.Create();
                 Result.NumerKlienta := aNumerKlienta;
@@ -238,7 +245,7 @@ begin
                 Result.ZakonczeniePrac := IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10);
                 Result.RodzajUslugi := aRodzajUslugi;
                 Result.Status := seRezerwacja;
-                (FZasoby.Items[i] as TZasob).FElementy.Add(Result);
+                FZasoby.Items[i].FElementy.Add(Result);
              end;
           end;
         end;
@@ -342,6 +349,16 @@ end;
 procedure TRezerwacja.SetZakonczeniePrac(const aValue: TDateTime);
 begin
   FZakonczeniePrac := aValue;
+end;
+
+function TZasobLista.GetItems(Index: Integer): TZasob;
+begin
+  Result := (inherited Items[Index] as TZasob);
+end;
+
+procedure TZasobLista.SetItems(Index: Integer; const aValue: TZasob);
+begin
+  inherited Items[Index] := aValue;
 end;
 
 end.

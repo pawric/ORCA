@@ -93,7 +93,7 @@ end;
 
 procedure TGrafik.NarysujZasob(const aZasob: TGraficznyRodzajUslugi);
 begin
-  case aZasob.FZasob.FRodzaj of
+  case aZasob.FZasob.Rodzaj of
     0: NarysujMyjnie(aZasob);
     1: NarysujWarsztat(aZasob);
   end;

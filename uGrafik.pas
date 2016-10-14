@@ -3,8 +3,7 @@ unit uGrafik;
 interface
 
 uses
-  uPlanowanie;
-
+  uPlanowanie, uRezerwacja, uZasob, uPlanowanieTypes;
 type
   TElementGraficzny = class(TObject)
   end;

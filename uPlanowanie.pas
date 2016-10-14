@@ -137,13 +137,10 @@ begin
         //lista elementow na stonowisku jest pusta wiec mozna uzyc wlasciwego stanowiska
         if FZasoby[i].Count = 0 then
         begin
-          Result := TRezerwacja.Create();
-          Result.NumerKlienta := aNumerKlienta;
-          Result.NumerRejestracji := '';
-          Result.RozpoczeciePrac := aKiedy;
-          Result.ZakonczeniePrac := IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10);
-          Result.RodzajUslugi := aRodzajUslugi;
-          Result.Status := seRezerwacja;
+          Result := TRezerwacja.Create(
+            aNumerKlienta, '', aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
+            IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
+          );
           FZasoby[i].Add(Result);
         end
         else
@@ -152,13 +149,11 @@ begin
           begin
              if not DateBetween(aKiedy, FZasoby[i][j].RozpoczeciePrac, FZasoby[i][j].ZakonczeniePrac) then
              begin
-                Result := TRezerwacja.Create();
-                Result.NumerKlienta := aNumerKlienta;
-                Result.NumerRejestracji := '';
-                Result.RozpoczeciePrac := aKiedy;
-                Result.ZakonczeniePrac := IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10);
-                Result.RodzajUslugi := aRodzajUslugi;
-                Result.Status := seRezerwacja;
+                Result := TRezerwacja.Create(
+                  aNumerKlienta, '', aRodzajElementu,
+                  aRodzajUslugi, aKiedy, seRezerwacja,
+                  IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
+                );
                 FZasoby[i].Add(Result);
              end;
           end;

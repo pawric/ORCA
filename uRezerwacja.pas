@@ -23,6 +23,7 @@ type
     procedure SetStatus(const aValue: TStatusElementu);
     procedure SetZakonczeniePrac(const aValue: TDateTime);
   public
+    constructor Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu; ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu; AZakonczeniePrac: TDateTime);
     property NumerKlienta: String read FNumerKlienta write SetNumerKlienta;
     property NumerRejestracji: String read FNumerRejestracji write SetNumerRejestracji;
     property Rodzaj: TTypElementu read FRodzaj write SetRodzaj;
@@ -33,6 +34,18 @@ type
   end;
 
 implementation
+
+constructor TRezerwacja.Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu; ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu; AZakonczeniePrac: TDateTime);
+begin
+  inherited Create;
+  FNumerKlienta := ANumerKlienta;
+  FNumerRejestracji := ANumerRejestracji;
+  FRodzaj := ARodzaj;
+  FRodzajUslugi := ARodzajUslugi;
+  FRozpoczeciePrac := ARozpoczeciePrac;
+  FStatus := AStatus;
+  FZakonczeniePrac := AZakonczeniePrac;
+end;
 
 procedure TRezerwacja.SetNumerKlienta(const aValue: String);
 begin

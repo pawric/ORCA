@@ -11,6 +11,17 @@ const
   );
 
 type
+  TZapisOdczytPlanowania = class(TObject)
+  public
+    procedure Wczytaj;
+    procedure ZapiszZmiany;
+  end;
+
+  TEksportPlanowania = class(TObject)
+  public
+    procedure Eksportuj;
+  end;
+
   TPlanowanie = class(TObject)
   private
     FZasoby: TZasoby;
@@ -22,9 +33,6 @@ type
     function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
     function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
     function PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy, aNaKiedy: TDateTime; aRodzajElementu: TTypElementu): Boolean;
-    procedure ZapiszZmiany();
-    procedure Wczytaj();
-    procedure Eksportuj();
     procedure AktualizujWidok();
   end;
 
@@ -160,22 +168,22 @@ begin
   end;
 end;
 
-procedure TPlanowanie.Eksportuj;
-begin
-
-end;
-
-procedure TPlanowanie.Wczytaj;
-begin
-
-end;
-
-procedure TPlanowanie.ZapiszZmiany;
-begin
-
-end;
-
 procedure TPlanowanie.AktualizujWidok;
+begin
+
+end;
+
+procedure TZapisOdczytPlanowania.Wczytaj;
+begin
+
+end;
+
+procedure TZapisOdczytPlanowania.ZapiszZmiany;
+begin
+
+end;
+
+procedure TEksportPlanowania.Eksportuj;
 begin
 
 end;

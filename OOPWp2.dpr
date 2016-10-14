@@ -10,7 +10,7 @@ uses
   TextTestRunner,
   UnitTestDummy in 'UnitTestDummy.pas',
   uPlanowanie in 'uPlanowanie.pas',
-  uNotifikacje in 'uNotifikacje.pas',
+  uNotyfikacje in 'uNotyfikacje.pas',
   uGrafik in 'uGrafik.pas',
   uZasob in 'uZasob.pas',
   uPlanowanieTypes in 'uPlanowanieTypes.pas',

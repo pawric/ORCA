@@ -82,7 +82,7 @@ type
   public
     constructor Create();
     destructor Destroy; Override;
-    property Items: TObjectList read FItems write FItems;
+    property Items: TObjectList read FItems;
   end;
 
   TPlanowanie = class(TObject)

@@ -3,3 +3,5 @@
 dunit.ini
 /*.dof
 /*.exe
+*.exe
+*.dof

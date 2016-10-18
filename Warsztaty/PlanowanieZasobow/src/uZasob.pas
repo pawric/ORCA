@@ -26,7 +26,9 @@ type
     procedure SetRodzaj(const aValue: Integer);
     procedure SetWykonaywaneUslugi(const aValue: TRodzajeUslug);
   public
-    constructor Create;
+    constructor Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
+        ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
+        AWykonaywaneUslugi: TRodzajeUslug);
     destructor Destroy; override;
     function Add(const aObject: TObject): Integer;
     procedure Remove(const aObject: TObject);
@@ -44,10 +46,18 @@ implementation
 
 uses Classes;
 
-constructor TZasob.Create;
+constructor TZasob.Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
+    ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
+    AWykonaywaneUslugi: TRodzajeUslug);
 begin
-  inherited;
+  inherited Create;
   FElementy := TObjectList.Create();
+  FAkceptowaneElementy := AAkceptowaneElementy;
+  FDostepnyDo := ADostepnyDo;
+  FDostepnyOd := ADostepnyOd;
+  FNazwa := ANazwa;
+  FRodzaj := ARodzaj;
+  FWykonaywaneUslugi := AWykonaywaneUslugi;
 end;
 
 destructor TZasob.Destroy;

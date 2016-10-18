@@ -134,7 +134,7 @@ begin
   Result := nil;
   for i := 0 to FZasoby.Count -1 do
   begin
-    if (aRodzajUslugi in FZasoby[i].WykonaywaneUslugi) and (aRodzajElementu in FZasoby[i].AkceptowaneElementy) then
+    if (aRodzajUslugi in FZasoby[i].WykonywaneUslugi) and (aRodzajElementu in FZasoby[i].AkceptowaneElementy) then
     begin
       if DateBetween(aKiedy, FZasoby[i].DostepnyOd, FZasoby.Items[i].DostepnyDo) then
       begin

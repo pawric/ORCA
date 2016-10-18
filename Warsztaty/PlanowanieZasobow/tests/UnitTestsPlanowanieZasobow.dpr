@@ -16,7 +16,9 @@ uses
   uPlanowanieTypes in '..\src\uPlanowanieTypes.pas',
   uRezerwacja in '..\src\uRezerwacja.pas',
   uZasobLista in '..\src\uZasobLista.pas',
-  uZasoby in '..\src\uZasoby.pas';
+  uZasoby in '..\src\uZasoby.pas',
+  uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
+  UnitTestZasob in 'UnitTests\UnitTestZasob.pas';
 
 {$IFDEF DUNIT_CONSOLE_MODE}
   {$APPTYPE CONSOLE}
@@ -27,8 +29,8 @@ uses
 begin
 {$IFDEF DUNIT_CONSOLE_MODE}
   if not FindCmdLineSwitch('Graphic', ['-','/'], True) then
-    TextTestRunner.RunRegisteredTests(rxbHaltOnFailures)
+    TextTestRunner.RunTests(TPlanowanieZasobowTestSuite.GetAllTests(), rxbHaltOnFailures)
   else
 {$ENDIF}
-    GUITestRunner.RunRegisteredTests;
+    GUITestRunner.RunTest(TPlanowanieZasobowTestSuite.GetAllTests);
 end.

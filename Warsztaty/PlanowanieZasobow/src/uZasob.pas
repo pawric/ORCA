@@ -28,7 +28,8 @@ type
   public
     constructor Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
         ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
-        AWykonaywaneUslugi: TRodzajeUslug);
+        AWykonaywaneUslugi: TRodzajeUslug); overload;
+    constructor Create; overload;
     destructor Destroy; override;
     function Add(const aObject: TObject): Integer;
     procedure Remove(const aObject: TObject);
@@ -51,14 +52,19 @@ constructor TZasob.Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
     ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
     AWykonaywaneUslugi: TRodzajeUslug);
 begin
-  inherited Create;
-  FElementy := TObjectList.Create();
+  Create;
   FAkceptowaneElementy := AAkceptowaneElementy;
   FDostepnyDo := ADostepnyDo;
   FDostepnyOd := ADostepnyOd;
   FNazwa := ANazwa;
   FRodzaj := ARodzaj;
   FWykonywaneUslugi := AWykonaywaneUslugi;
+end;
+
+constructor TZasob.Create;
+begin
+  inherited Create();
+  FElementy := TObjectList.Create();
 end;
 
 destructor TZasob.Destroy;

@@ -116,9 +116,13 @@ function TPlanowanie.PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi:
 var
   v_NowyElement: TRezerwacja;
 begin
+  Result := False;
   v_NowyElement := WykonajRezerwacje(aNaKiedy, aRodzajUslugi, aNumerKlienta, aRodzajElementu);
   if Assigned(v_NowyElement) then
+  begin
     AnulujRezerwacje(aNumerKlienta, aRodzajUslugi, aKiedy);
+    Result := True;
+  end;
 end;
 
 function TPlanowanie.WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi:

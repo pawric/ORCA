@@ -18,7 +18,8 @@ uses
   uZasobLista in '..\src\uZasobLista.pas',
   uZasoby in '..\src\uZasoby.pas',
   uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
-  UnitTestZasob in 'UnitTests\UnitTestZasob.pas';
+  UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
+  UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas';
 
 {$IFDEF DUNIT_CONSOLE_MODE}
   {$APPTYPE CONSOLE}

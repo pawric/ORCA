@@ -15,7 +15,7 @@ type
     FNazwa: String;
     FRodzaj: Integer;
 //    FMaksymalnaLiczbaElementow: Integer;
-    FWykonaywaneUslugi: TRodzajeUslug;
+    FWykonywaneUslugi: TRodzajeUslug;
     function GetCount: Integer;
     function GetItems(Index: Integer): TRezerwacja;
     procedure SetAkceptowaneElementy(const aValue: TTypyElementow);
@@ -24,7 +24,7 @@ type
     procedure SetItems(Index: Integer; const Value: TRezerwacja);
     procedure SetNazwa(const aValue: String);
     procedure SetRodzaj(const aValue: Integer);
-    procedure SetWykonaywaneUslugi(const aValue: TRodzajeUslug);
+    procedure SetWykonywaneUslugi(const aValue: TRodzajeUslug);
   public
     constructor Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
         ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
@@ -39,7 +39,8 @@ type
     property Items[Index: Integer]: TRezerwacja read GetItems write SetItems; default;
     property Nazwa: String read FNazwa write SetNazwa;
     property Rodzaj: Integer read FRodzaj write SetRodzaj;
-    property WykonaywaneUslugi: TRodzajeUslug read FWykonaywaneUslugi write SetWykonaywaneUslugi;
+    property WykonywaneUslugi: TRodzajeUslug read FWykonywaneUslugi write
+        SetWykonywaneUslugi;
   end;
 
 implementation
@@ -57,7 +58,7 @@ begin
   FDostepnyOd := ADostepnyOd;
   FNazwa := ANazwa;
   FRodzaj := ARodzaj;
-  FWykonaywaneUslugi := AWykonaywaneUslugi;
+  FWykonywaneUslugi := AWykonaywaneUslugi;
 end;
 
 destructor TZasob.Destroy;
@@ -119,9 +120,9 @@ begin
   FRodzaj := aValue;
 end;
 
-procedure TZasob.SetWykonaywaneUslugi(const aValue: TRodzajeUslug);
+procedure TZasob.SetWykonywaneUslugi(const aValue: TRodzajeUslug);
 begin
-  FWykonaywaneUslugi := aValue;
+  FWykonywaneUslugi := aValue;
 end;
 
 end.

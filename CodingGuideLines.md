@@ -1,5 +1,4 @@
 # Coding Guildelines
-----------
 
 **Wstęp**
 

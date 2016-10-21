@@ -20,7 +20,28 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 
 ## Zasady ogólne
 
-1. Nazewnictwo modułów
+Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach jest [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280) ustalamy jedynie odstępstwa od zasad tam wskazanych.
+
+ 1. Moduły
+	- Nazewnictwo
+		
+		W naszych projektach nazywając moduł zawsze zaczynamy od małej litery u od *unit* a dla poszczególnych typów modułów możemy zastosować następujące zaraz po pierwszej literze wyróżniki:
+		
+	 	- Dla modułu zawierającego kod formy lub ramki - **frm**
+	 	- Dla modułu będącego pochodną DataModule - **DM**
+	 	- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
+
+		następnie definiujemy nazwę modułu stosując notację InfixCaps.
+
+		Przykłady:
+		````pascal
+		unit ufrmMain.pas; //moduł zawierający kod formy
+		unit uDMCustomer.pas; //moduł pochodny od TDataModule
+		unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości ;)
+		````
+
+	- Zawartość
+	
 2. Nazewnictwo identyfikatorów
 3. Nazewnictwo typów nie będących klasami
 4. Nazewnictwo klas/interfejsów

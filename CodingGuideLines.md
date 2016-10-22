@@ -54,13 +54,13 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 
 	- komentarze blokowe
 
-	Zawsze zaczynaj od znaków **(* ** po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami ***) **.
+		Zawsze zaczynaj od znaków (* po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami *).
 
 	- generalne uwagi
 
-	Unikaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów). Staraj się łamać linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
-	Jeśli tworzysz interfejs/klasę to staraj się zawsze udokumentować przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
-	Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
+		Unikaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów). Staraj się łamać linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
+		Jeśli tworzysz interfejs/klasę to staraj się zawsze udokumentować przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
+		Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
 
 	**Przykłady komentowania kodu:**
 	````pascal

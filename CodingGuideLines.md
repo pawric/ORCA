@@ -25,7 +25,7 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
  1. Moduły
 	- Nazewnictwo
 		
-		W naszych projektach nazywając moduł zawsze zaczynamy od małej litery u od *unit* a dla poszczególnych typów modułów możemy zastosować następujące zaraz po pierwszej literze wyróżniki:
+		W aktualnej wersji umownie w naszych projektach nazywając moduł zawsze zaczynamy od małej litery u od *unit* a dla poszczególnych typów modułów możemy zastosować następujące zaraz po pierwszej literze wyróżniki:
 		
 	 	- Dla modułu zawierającego kod formy lub ramki - **frm**
 	 	- Dla modułu będącego pochodną DataModule - **DM**
@@ -33,7 +33,7 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 
 		następnie definiujemy nazwę modułu stosując notację InfixCaps.
 
-		Przykłady:
+		**Przykłady nazewnictwa modułów:**
 		````pascal
 		unit ufrmMain.pas; //moduł zawierający kod formy
 		unit uDMCustomer.pas; //moduł pochodny od TDataModule
@@ -41,13 +41,56 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 		````
 
 	- Zawartość
+
+	Należy dbać o to by zawartość modułu szczególnie w sekcji **interface** odpowiadała chociaż tematycznie jego nazwie. Nawet w przypadku gdy traktujemy moduł jako brakujące w naszym języku **namespace** należy zadbać o to by moduł nie był kombajnem do wszystkiego, a także o to by udostępniać (w miarę możliwości) tylko faktycznie publiczne API. Moduł powinien być w miarę możliwości mały pod względem ilości linii kodu, a w sekcji **uses** zarówno w w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
 	
-2. Nazewnictwo identyfikatorów
-3. Nazewnictwo typów nie będących klasami
-4. Nazewnictwo klas/interfejsów
+2. Komentowanie kodu
+
+	Komentarze w kodzie o ile je stosujemy powinny być jasne i związane z implementowaną funkcjonalnością. Generalnie nie powinno się komentować kodu bo jesli czujesz, że masz potrzebę coś w nim dodatkowo wyjasnić to znaczy przeważnie, że jest zbyt zagmatwany by go zorzumieć po przeczytaniu. Niemniej jednak jeśli już musisz coś zakomentować to zrób to w taki sposób aby inni nie mieli problemu z odczytaniem komentarza, czyli:
+
+	- jednoliniowe komentarze
+
+		Zawsze zaczynaj komentować nad linią kodu, którego komentarz dotyczy i zaczynaj od **//**a następnie postaw spację i dopiero pisz komentarz.
+
+	- komentarze blokowe
+
+	Zawsze zaczynaj od znaków **(* ** po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami ***) **.
+
+	- generalne uwagi
+
+	Unikaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów). Staraj się łamać linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
+	Jeśli tworzysz interfejs/klasę to staraj się zawsze udokumentować przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
+	Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
+
+	**Przykłady komentowania kodu:**
+	````pascal
+	// Poniższe komentarze są zbędne ponieważ wszystko wynika z Kodu
+	// funkcja sumuje dwie wartosci
+	function Sum(const a, b: Integer): Integer;
+	begin
+		// dodajemy a i b zwracamy wynik
+		Result := a +b;
+	end;
+
+	// Poniższy komentarz to nadmiarowy tekst 
+
+	{*************************************************************************************************
+	* Autor: Janek Zenek
+	* Data wyprodukowania: 2045-01-01
+	* Opis: TClassFoo Realizuje zadania Foo 
+	**************************************************************************************************}
+	type
+		TClassFoo = class(TObject)
+		public 
+			procedure KillSystem();
+		end; 
+	````
+3. Nazewnictwo identyfikatorów
+4. Nazewnictwo typów nie będących klasami
+5. Nazewnictwo klas/interfejsów
 	- Nazewnictwo właściwości
 	- Nazewnictwo property
 	- Nazewnictwo metod
-5. Konstrukcje blokowe
+6. Konstrukcje blokowe
 
 ## Dobre i złe praktyki

@@ -31,7 +31,7 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 	 	- Dla modułu będącego pochodną DataModule - **DM**
 	 	- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
 
-		następnie definiujemy nazwę modułu stosując notację InfixCaps.
+		następnie definiujemy nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase).
 
 		**Przykłady nazewnictwa modułów:**
 		````pascal
@@ -86,11 +86,63 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 		end; 
 	````
 3. Nazewnictwo identyfikatorów
-4. Nazewnictwo typów nie będących klasami
-5. Nazewnictwo klas/interfejsów
-	- Nazewnictwo właściwości
-	- Nazewnictwo property
-	- Nazewnictwo metod
-6. Konstrukcje blokowe
+
+	- Generlane zasady 
+
+		- Podczas budowania nazwy identyfikatora powinieneś się starać jasno okreslić jego znaczenie nawet jeśli nazwa będzie długa. Niedopuszczalne jest stosowanie nazw identyfikatorów jednoliterowych nie mówiących nic. Wyjątek stanowią lokalne zmienne kontrolne pętli.
+		
+			Przykład błędny:
+			````pascal
+			function ObliczSume(const aTowary: TTowaryLista): Currency;
+			var
+			  a: Currency;
+			  i: Integer;
+			begin
+			  for i:=0 to aTowary.Count -1 do 
+			  begin
+				a := aTowary[i].Cena;
+				Result := Result + a;
+			  end;
+			end;
+			````
+			
+			Przykład poprawny:
+			````pascal
+			function ObliczSume(const aTowary: TTowaryLista): Currency;
+			var
+			  v_CenaTowaru: Currency;
+			  i: Integer;
+			begin
+			  for i:=0 to aTowary.Count -1 do 
+			  begin
+				v_CenaTowaru := aTowary[i].Cena;
+				Result := Result + v_CenaTowaru;
+			  end;
+			end;
+			````
+			
+		- Stosuj notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) zwracając uwagę na to by każde nowe słowo w nazwie identyfikatora zaczynało się z nowej litery.
+		- Unikaj "_"(underscore) w nazwach identyfikatorów (stosujemy kilka wyjątków od tej reguły).
+		- Zmienne lokalne w metodach nazywaj zaczynając od prefixu **v_**
+		
+			Przykład:
+			````pascal
+			function Foo(): Integer;
+			var
+			  // poprawnie nazwany identyfikator zmiennej lokalnej w metodzie
+			  v_XPosition: Integer;
+			  // niepoprawnie nazwany identyfikator zmiennej lokalnej w metodzie
+			  yPosition: Integer;
+			begin
+			end;
+			````
+		- Zmienne globalne (o ile życie zmusi Cię do ich zastosowania) nazywaj zawsze zaczynając od prefixu **g_**.
+		- Nazwy metod w testach jednostkowych (do debaty).
+		- Nazwy stałych (do debaty).
+		
+	- Nazewnictwo typów nie będących klasami
+	- Nazewnictwo klas/interfejsów	
+	
+4. Konstrukcje blokowe
 
 ## Dobre i złe praktyki

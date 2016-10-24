@@ -140,7 +140,7 @@ TClassFoo = class(TObject)
 		- Zmienne globalne (o ile życie zmusi Cię do ich zastosowania) nazywaj zawsze zaczynając od prefixu **g_**.
 		- Nazwy metod w testach jednostkowych (do debaty).
 		- Nazwy stałych (do debaty).
-		- Argumenty metod/funkcji/procedur zawsze nazwyaj zaczynając od znaku **A** a następnie stosując wspomnianą wyżej notację napisz nazwę argumentu.
+		- Argumenty metod/funkcji/procedur zawsze nazywaj zaczynając od znaku **A** a następnie stosując wspomnianą wyżej notację napisz nazwę argumentu.
 		
 			Przykład błędny:
 			````pascal

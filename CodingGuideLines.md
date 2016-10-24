@@ -42,7 +42,7 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 
 	- Zawartość
 
-	Należy dbać o to by zawartość modułu szczególnie w sekcji **interface** odpowiadała chociaż tematycznie jego nazwie. Nawet w przypadku gdy traktujemy moduł jako brakujące w naszym języku **namespace** należy zadbać o to by moduł nie był kombajnem do wszystkiego, a także o to by udostępniać (w miarę możliwości) tylko faktycznie publiczne API. Moduł powinien być w miarę możliwości mały pod względem ilości linii kodu, a w sekcji **uses** zarówno w w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
+		Należy dbać o to by zawartość modułu szczególnie w sekcji **interface** odpowiadała chociaż tematycznie jego nazwie. Nawet w przypadku gdy traktujemy moduł jako brakujące w naszym języku **namespace** należy zadbać o to by moduł nie był kombajnem do wszystkiego, a także o to by udostępniać (w miarę możliwości) tylko faktycznie publiczne API. Moduł powinien być w miarę możliwości mały pod względem ilości linii kodu, a w sekcji **uses** zarówno w w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
 	
 2. Komentowanie kodu
 
@@ -80,7 +80,8 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 	* Opis: TClassFoo Realizuje zadania Foo 
 	**************************************************************************************************}
 	type
-		TClassFoo = class(TObject)
+
+TClassFoo = class(TObject)
 		public 
 			procedure KillSystem();
 		end; 
@@ -139,7 +140,17 @@ Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach je
 		- Zmienne globalne (o ile życie zmusi Cię do ich zastosowania) nazywaj zawsze zaczynając od prefixu **g_**.
 		- Nazwy metod w testach jednostkowych (do debaty).
 		- Nazwy stałych (do debaty).
+		- Argumenty metod/funkcji/procedur zawsze nazwyaj zaczynając od znaku **A** a następnie stosując wspomnianą wyżej notację napisz nazwę argumentu.
 		
+			Przykład błędny:
+			````pascal
+			function ObliczCene(Cena, Rabat: Currency): Currency;
+			````
+			Przykład poprawny
+			````pascal
+			function ObliczeCene(ACena, ARabat: Currency): Currency;
+			````
+
 	- Nazewnictwo typów nie będących klasami
 	- Nazewnictwo klas/interfejsów	
 	

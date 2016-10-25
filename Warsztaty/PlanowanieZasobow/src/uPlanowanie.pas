@@ -29,8 +29,10 @@ type
     constructor Create();
     Destructor Destroy; override;
     function WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi: TRodzajUslugi; aNumerKlienta: String; aRodzajElementu: TTypElementu): TRezerwacja;
-    function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
-    function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
+    function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi:
+        TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
+    function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi;
+        aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
     function PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy, aNaKiedy: TDateTime; aRodzajElementu: TTypElementu): Boolean;
     procedure AktualizujWidok();
   end;
@@ -44,24 +46,30 @@ uses
 
 { TPlanowanie }
 
-function TPlanowanie.AnulujRezerwacje(aNumerKlienta: String;
-  aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
+function TPlanowanie.AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi:
+    TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
 var
   i, j: Integer;
   v_Rezerwacja: TRezerwacja;
+  v_SzukanaRezerwacja: TRezerwacja;
 begin
   Result := False;
-  for i := 0 to FZasoby.Count -1 do
-  begin
-    for j := FZasoby[i].Rezerwacje.Count - 1 downto 0 do
+  v_SzukanaRezerwacja := TRezerwacja.Create(aNumerKlienta, aTypElementu, aRodzajUslugi, aKiedy, seRezerwacja, aKiedy);
+  try
+    for i := 0 to FZasoby.Count -1 do
     begin
-      v_Rezerwacja := FZasoby[i].Rezerwacje[j];
-      if (v_Rezerwacja.NumerKlienta =  aNumerKlienta) and (v_Rezerwacja.RodzajUslugi = aRodzajUslugi) and (v_Rezerwacja.Status = seRezerwacja) and (aKiedy = v_Rezerwacja.RozpoczeciePrac) then
+      for j := FZasoby[i].Rezerwacje.Count - 1 downto 0 do
       begin
-        FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
-        Break;
+        v_Rezerwacja := FZasoby[i].Rezerwacje[j];
+        if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
+        begin
+          FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
+          Break;
+        end;
       end;
     end;
+  finally
+    v_SzukanaRezerwacja.Free();
   end;
 end;
 
@@ -77,25 +85,31 @@ begin
   inherited;
 end;
 
-function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String;
-  aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
+function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi:
+    TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
 var
   i, j: Integer;
   v_Rezerwacja: TRezerwacja;
+  v_SzukanaRezerwacja: TRezerwacja;
 begin
   Result := False;
-  for i := 0 to FZasoby.Count -1 do
-  begin
-    for j := 0 to FZasoby[i].Rezerwacje.Count - 1 do
+  v_SzukanaRezerwacja := TRezerwacja.Create(aNumerKlienta, aTypElementu, aRodzajUslugi, aKiedy, seRezerwacja);
+  try
+    for i := 0 to FZasoby.Count -1 do
     begin
-      v_Rezerwacja := FZasoby[i].Rezerwacje[j];
-      if (v_Rezerwacja.NumerKlienta =  aNumerKlienta) and (v_Rezerwacja.RodzajUslugi = aRodzajUslugi) and (v_Rezerwacja.Status = seRezerwacja) and (aKiedy = v_Rezerwacja.RozpoczeciePrac) then
+      for j := 0 to FZasoby[i].Rezerwacje.Count - 1 do
       begin
-        v_Rezerwacja.Status := sePotwierdzonePrzybycie;
-        Result := True;
-        Break;
+        v_Rezerwacja := FZasoby[i].Rezerwacje[j];
+        if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
+        begin
+          v_Rezerwacja.Status := sePotwierdzonePrzybycie;
+          Result := True;
+          Break;
+        end;
       end;
     end;
+  finally
+    v_SzukanaRezerwacja.Free();
   end;
 end;
 
@@ -109,7 +123,7 @@ begin
   v_NowyElement := WykonajRezerwacje(aNaKiedy, aRodzajUslugi, aNumerKlienta, aRodzajElementu);
   if Assigned(v_NowyElement) then
   begin
-    AnulujRezerwacje(aNumerKlienta, aRodzajUslugi, aKiedy);
+    AnulujRezerwacje(aNumerKlienta, aRodzajUslugi, aKiedy, aRodzajElementu);
     Result := True;
   end;
 end;

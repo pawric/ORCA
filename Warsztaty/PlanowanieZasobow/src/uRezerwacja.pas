@@ -25,6 +25,10 @@ type
     constructor Create(const ANumerKlienta: String; ARodzaj: TTypElementu;
         ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus:
         TStatusElementu; AZakonczeniePrac: TDateTime); overload;
+    constructor Create(const ANumerKlienta: String; ARodzaj: TTypElementu;
+        ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus:
+        TStatusElementu); overload;
+    function Equals(AObject: TObject): Boolean;
     property NumerKlienta: String read FNumerKlienta write SetNumerKlienta;
     property Rodzaj: TTypElementu read FRodzaj write SetRodzaj;
     property RodzajUslugi: TRodzajUslugi read FRodzajUslugi write SetRodzajUslugi;
@@ -59,6 +63,40 @@ begin
   FZakonczeniePrac := 0;
 end;
 
+constructor TRezerwacja.Create(const ANumerKlienta: String; ARodzaj:
+    TTypElementu; ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime;
+    AStatus: TStatusElementu);
+begin
+  Create (ANumerKlienta, ARodzaj, ARodzajUslugi, ARozpoczeciePrac, AStatus, ARozpoczeciePrac);
+end;
+
+function TRezerwacja.Equals(AObject: TObject): Boolean;
+var
+  v_ZrodloPorownania: TRezerwacja;
+begin
+  Result := False;
+  if (not Assigned(AObject)) then
+    Exit;
+  if (not (AObject is TRezerwacja)) then
+    Exit;
+
+  if (AObject = self) then
+  begin
+    Result := True;
+    Exit;
+  end;
+  
+  v_ZrodloPorownania := (AObject as TRezerwacja);
+
+  Result := (FNumerKlienta = v_ZrodloPorownania.NumerKlienta) and
+    (FRodzajUslugi = v_ZrodloPorownania.RodzajUslugi) and
+    (FStatus = v_ZrodloPorownania.Status) and
+    (FRozpoczeciePrac = v_ZrodloPorownania.RozpoczeciePrac) and
+    (FRodzaj  = v_ZrodloPorownania.Rodzaj) and
+    (FZakonczeniePrac = v_ZrodloPorownania.ZakonczeniePrac);
+
+end;
+
 procedure TRezerwacja.SetNumerKlienta(const aValue: String);
 begin
   FNumerKlienta := aValue;
@@ -90,3 +128,4 @@ begin
 end;
 
 end.
+

@@ -23,7 +23,10 @@ type
     procedure SetStatus(const aValue: TStatusElementu);
     procedure SetZakonczeniePrac(const aValue: TDateTime);
   public
-    constructor Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu; ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu; AZakonczeniePrac: TDateTime);
+    constructor Create(); overload;
+    constructor Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu;
+      ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu;
+      AZakonczeniePrac: TDateTime); overload;
     property NumerKlienta: String read FNumerKlienta write SetNumerKlienta;
     property NumerRejestracji: String read FNumerRejestracji write SetNumerRejestracji;
     property Rodzaj: TTypElementu read FRodzaj write SetRodzaj;
@@ -35,9 +38,10 @@ type
 
 implementation
 
-constructor TRezerwacja.Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu; ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu; AZakonczeniePrac: TDateTime);
+constructor TRezerwacja.Create(const ANumerKlienta, ANumerRejestracji: String; ARodzaj: TTypElementu;
+  ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus: TStatusElementu; AZakonczeniePrac: TDateTime);
 begin
-  inherited Create;
+  Create;
   FNumerKlienta := ANumerKlienta;
   FNumerRejestracji := ANumerRejestracji;
   FRodzaj := ARodzaj;
@@ -45,6 +49,18 @@ begin
   FRozpoczeciePrac := ARozpoczeciePrac;
   FStatus := AStatus;
   FZakonczeniePrac := AZakonczeniePrac;
+end;
+
+constructor TRezerwacja.Create;
+begin
+  inherited Create;
+  FNumerKlienta := '';
+  FNumerRejestracji := '';
+  FRodzaj := teSamochod;
+  FRodzajUslugi := ruNaprawa;
+  FRozpoczeciePrac := 0;
+  FStatus := seRezerwacja;
+  FZakonczeniePrac := 0;
 end;
 
 procedure TRezerwacja.SetNumerKlienta(const aValue: String);

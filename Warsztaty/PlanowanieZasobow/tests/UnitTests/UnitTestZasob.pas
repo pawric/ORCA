@@ -3,7 +3,7 @@ unit UnitTestZasob;
 interface
 
 uses
-  TestFramework, uZasob;
+  TestFramework, uZasob, uRezerwacja;
 
 type
   TZasobTestCase = class(TTestCase)
@@ -37,38 +37,39 @@ end;
 
 procedure TZasobTestCase.Test_Add_GdyDodajeElement_WtedyCountPowinnoWskazywacDokladnie1;
 begin
-  FZasob.Add(TObject.Create());
-  CheckEquals(1, FZasob.Count);
+  FZasob.Rezerwacje.Add(TRezerwacja.Create());
+  CheckEquals(1, FZasob.Rezerwacje.Count);
 end;
 
 procedure TZasobTestCase.Test_Add_GdyDodajePustyElement_WtedyCountPowinnoWskazywacDokladnieZero;
 begin
-  FZasob.Add(nil);
-  CheckEquals(0, FZasob.Count);
+  FZasob.Rezerwacje.Add(nil);
+  CheckEquals(0, FZasob.Rezerwacje.Count);
 end;
 
 procedure TZasobTestCase.Test_Remove_GdyUsuwamIstniejacyElement_WtedyCountPowinnoZmniejszycSieOJeden;
 var
-  v_Object: TObject;
+  v_Rezerwacja: TRezerwacja;
   v_Count: Integer;
 begin
-  v_Object := TObject.Create();
-  FZasob.Add(v_Object);
-  v_Count := FZasob.Count;
-  FZasob.Remove(v_Object);
-  CheckEquals(v_Count-1, FZasob.Count);
+  v_Rezerwacja := TRezerwacja.Create();
+  FZasob.Rezerwacje.Add(v_Rezerwacja);
+  v_Count := FZasob.Rezerwacje.Count;
+  FZasob.Rezerwacje.Remove(v_Rezerwacja);
+  CheckEquals(v_Count-1, FZasob.Rezerwacje.Count);
 end;
 
 procedure TZasobTestCase.Test_Remove_GdyUsuwamNil_WtedyCountNiePowinnoSieZmniejszyc;
 var
-  v_Object: TObject;
+  v_Rezerwacja: TRezerwacja;
   v_Count: Integer;
 begin
-  v_Object := TObject.Create();
-  FZasob.Add(v_Object);
-  v_Count := FZasob.Count;
-  FZasob.Remove(nil);
-  CheckEquals(v_Count, FZasob.Count);
+  v_Rezerwacja := TRezerwacja.Create();
+  FZasob.Rezerwacje.Add(v_Rezerwacja);
+  v_Count := FZasob.Rezerwacje.Count;
+  FZasob.Rezerwacje.Remove(nil);
+  CheckEquals(v_Count, FZasob.Rezerwacje.Count);
 end;
 
 end.
+

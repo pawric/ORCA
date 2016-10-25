@@ -133,10 +133,10 @@ begin
   for i := 0 to FZasoby.Count -1 do
   begin
     v_Zasob := FZasoby[i];
-    if v_Zasob.CzyUslugaObslugiwana(aRodzajUslugi) and
-       v_Zasob.CzyElementObslugiwany(aRodzajElementu) and
-       v_Zasob.CzyDostepny(aKiedy) and
-       not v_Zasob.CzyZarezerwowany(aKiedy)
+    if v_Zasob.CzyObslugujeUsluge(aRodzajUslugi) and
+       v_Zasob.CzyObslugujeElement(aRodzajElementu) and
+       v_Zasob.CzyJestDostepny(aKiedy) and
+       not v_Zasob.CzyJestZarezerwowany(aKiedy)
     then
     begin
       Result := TRezerwacja.Create(

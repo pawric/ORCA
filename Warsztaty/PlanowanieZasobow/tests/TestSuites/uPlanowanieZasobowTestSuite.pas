@@ -14,11 +14,12 @@ type
 implementation
 
 uses
-  UnitTestZasob, UnitTestPlanowanie;
+  UnitTestZasob, UnitTestPlanowanie, UnitTestRezerwacja;
 
 class function TPlanowanieZasobowTestSuite.GetAllTests: ITestSuite;
 begin
   Result := TTestSuite.Create('Planowanie zasobów', [
+    TRezerwacjaTestCase.Suite(),
     TZasobTestCase.Suite(),
     TPlanowanieTestCase.Suite()
   ]);

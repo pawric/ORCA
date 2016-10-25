@@ -28,10 +28,10 @@ type
         AWykonaywaneUslugi: TRodzajeUslug); overload;
     constructor Create; overload;
     destructor Destroy; override;
-    function CzyUslugaObslugiwana(ARodzajUslugi: TRodzajUslugi): Boolean;
-    function CzyElementObslugiwany(ATypElementu: TTypElementu): Boolean;
-    function CzyDostepny(AKiedy: TDateTime): Boolean;
-    function CzyZarezerwowany(AKiedy: TDateTime): Boolean;
+    function CzyObslugujeUsluge(ARodzajUslugi: TRodzajUslugi): Boolean;
+    function CzyObslugujeElement(ATypElementu: TTypElementu): Boolean;
+    function CzyJestDostepny(AKiedy: TDateTime): Boolean;
+    function CzyJestZarezerwowany(AKiedy: TDateTime): Boolean;
     property AkceptowaneElementy: TTypyElementow read FAkceptowaneElementy write SetAkceptowaneElementy;
     property DostepnyDo: TDateTime read FDostepnyDo write SetDostepnyDo;
     property DostepnyOd: TDateTime read FDostepnyOd write SetDostepnyOd;
@@ -65,17 +65,17 @@ begin
   FRezerwacje := TRezerwacje.Create();
 end;
 
-function TZasob.CzyDostepny(AKiedy: TDateTime): Boolean;
+function TZasob.CzyJestDostepny(AKiedy: TDateTime): Boolean;
 begin
   Result := TDateUtile.DateBetween(AKiedy, FDostepnyDo, FDostepnyDo);
 end;
 
-function TZasob.CzyElementObslugiwany(ATypElementu: TTypElementu): Boolean;
+function TZasob.CzyObslugujeElement(ATypElementu: TTypElementu): Boolean;
 begin
   Result := ATypElementu in FAkceptowaneElementy;
 end;
 
-function TZasob.CzyZarezerwowany(AKiedy: TDateTime): Boolean;
+function TZasob.CzyJestZarezerwowany(AKiedy: TDateTime): Boolean;
 var
   i: Integer;
   v_Rezerwacja: TRezerwacja;
@@ -92,7 +92,7 @@ begin
   end;
 end;
 
-function TZasob.CzyUslugaObslugiwana(ARodzajUslugi: TRodzajUslugi): Boolean;
+function TZasob.CzyObslugujeUsluge(ARodzajUslugi: TRodzajUslugi): Boolean;
 begin
   Result := ARodzajUslugi in FWykonywaneUslugi;
 end;

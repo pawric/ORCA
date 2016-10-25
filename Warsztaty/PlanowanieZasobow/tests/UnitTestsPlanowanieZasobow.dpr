@@ -20,7 +20,8 @@ uses
   UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
   UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas',
   uRezerwacje in '..\src\uRezerwacje.pas',
-  uDateUtils in '..\src\uDateUtils.pas';
+  uDateUtils in '..\src\uDateUtils.pas',
+  UnitTestRezerwacja in 'UnitTests\UnitTestRezerwacja.pas';
 
 {$IFDEF DUNIT_CONSOLE_MODE}
   {$APPTYPE CONSOLE}

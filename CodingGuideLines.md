@@ -21,11 +21,11 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 ## Spis treści.
 
 1. [Generalna konwencja](#generalna-konwencja)
-1. [Komnetowanie kodu](#komentowanie-kodu)
-1. [Nazewnictwo modułów](#nazewnictwo-modułów)
-1. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
-1. [Nazewnictwo typów nie będących klasami](#nazewnictwo-typów-nie-będących-klasami)
-1. [Nazewnictwo klas i interfejsów](#nazewnictwo-klas-i-interfejsów)
+2. [Komnetowanie kodu](#komentowanie-kodu)
+3. [Nazewnictwo modułów](#nazewnictwo-modułów)
+4. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
+5. [Nazewnictwo typów nie będących klasami](#nazewnictwo-typów-nie-będących-klasami)
+6. [Nazewnictwo klas i interfejsów](#nazewnictwo-klas-i-interfejsów)
 
 ## Generalna konwencja
 
@@ -43,43 +43,49 @@ Jeśli nie wiesz jak kod powinien wyglądać w konkretnej sytuacji a nie jest to
 
 Komentarze w kodzie o ile je stosujemy powinny być jasne i związane z implementowaną funkcjonalnością. Generalnie nie powinno się komentować kodu bo jesli czujesz, że masz potrzebę coś w nim dodatkowo wyjasnić to znaczy przeważnie, że jest zbyt zagmatwany by go zorzumieć po przeczytaniu. Niemniej jednak jeśli już musisz coś zakomentować to zrób to w taki sposób aby inni nie mieli problemu z odczytaniem komentarza, czyli:
 
-- jednoliniowe komentarze
+###### [Styl [S002](#styl-s002)]
+Jednoliniowe komentarze zawsze zaczynaj komentować nad linią kodu, którego komentarz dotyczy i zaczynaj od **//**a następnie postaw spację i dopiero pisz komentarz.
 
-	Zawsze zaczynaj komentować nad linią kodu, którego komentarz dotyczy i zaczynaj od **//**a następnie postaw spację i dopiero pisz komentarz.
+###### [Styl [S003](#styl-s003)]
+Komentarze blokowe zawsze zaczynaj od znaków (* po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami *).
 
-- komentarze blokowe
+##### Generalne zasady
 
-	Zawsze zaczynaj od znaków (* po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami *).
+###### [Styl [S004](#styl-s004)]
+Nie używaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów).
 
-- generalne uwagi
+###### [Styl [S005](#styl-s005)]
+Łam linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
 
-	Unikaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów). Staraj się łamać linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
-	Jeśli tworzysz interfejs/klasę to staraj się zawsze udokumentować przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
-	Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
+###### [Styl [S006](#styl-s006)]
+Jeśli tworzysz interfejs/klasę to zawsze dokumentuj w komenatrzu przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
 
-	**Przykłady komentowania kodu:**
-	````pascal
-	// Poniższe komentarze są zbędne ponieważ wszystko wynika z Kodu
-	// funkcja sumuje dwie wartosci
-	function Sum(const a, b: Integer): Integer;
-	begin
-		// dodajemy a i b zwracamy wynik
-		Result := a +b;
-	end;
+###### [Styl [S007](#styl-s007)]
+Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
 
-	// Poniższy komentarz to nadmiarowy tekst 
+**Przykłady komentowania kodu:**
+````pascal
+// Poniższe komentarze są zbędne ponieważ wszystko wynika z Kodu
+// funkcja sumuje dwie wartosci
+function Sum(const a, b: Integer): Integer;
+begin
+	// dodajemy a i b zwracamy wynik
+	Result := a +b;
+end;
 
-	{*************************************************************************************************
-	* Autor: Janek Zenek
-	* Data wyprodukowania: 2045-01-01
-	* Opis: TClassFoo Realizuje zadania Foo 
-	**************************************************************************************************}
-	type
-		TClassFoo = class(TObject)
-		public 
-			procedure KillSystem();
-		end; 
-	````
+// Poniższy komentarz to nadmiarowy tekst 
+
+{*************************************************************************************************
+* Autor: Janek Zenek
+* Data wyprodukowania: 2045-01-01
+* Opis: TClassFoo Realizuje zadania Foo 
+**************************************************************************************************}
+type
+  TClassFoo = class(TObject)
+  public 
+	procedure KillSystem();
+  end; 
+````
 
 **[Powrót do góry](#spis-treści)**
 	

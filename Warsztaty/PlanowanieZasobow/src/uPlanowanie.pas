@@ -49,7 +49,7 @@ uses
 function TPlanowanie.AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi:
     TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
 var
-  i, j: Integer;
+  i: Integer;
   v_Rezerwacja: TRezerwacja;
   v_SzukanaRezerwacja: TRezerwacja;
 begin
@@ -58,14 +58,11 @@ begin
   try
     for i := 0 to FZasoby.Count -1 do
     begin
-      for j := FZasoby[i].Rezerwacje.Count - 1 downto 0 do
+      v_Rezerwacja := FZasoby[i].Rezerwacje.Find(v_SzukanaRezerwacja);
+      if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
       begin
-        v_Rezerwacja := FZasoby[i].Rezerwacje[j];
-        if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
-        begin
-          FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
-          Break;
-        end;
+        FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
+        Break;
       end;
     end;
   finally
@@ -88,7 +85,7 @@ end;
 function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi:
     TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
 var
-  i, j: Integer;
+  i: Integer;
   v_Rezerwacja: TRezerwacja;
   v_SzukanaRezerwacja: TRezerwacja;
 begin
@@ -97,15 +94,12 @@ begin
   try
     for i := 0 to FZasoby.Count -1 do
     begin
-      for j := 0 to FZasoby[i].Rezerwacje.Count - 1 do
+      v_Rezerwacja := FZasoby[i].Rezerwacje.Find(v_SzukanaRezerwacja);
+      if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
       begin
-        v_Rezerwacja := FZasoby[i].Rezerwacje[j];
-        if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
-        begin
-          v_Rezerwacja.Status := sePotwierdzonePrzybycie;
-          Result := True;
-          Break;
-        end;
+        v_Rezerwacja.Status := sePotwierdzonePrzybycie;
+        Result := True;
+        Break;
       end;
     end;
   finally

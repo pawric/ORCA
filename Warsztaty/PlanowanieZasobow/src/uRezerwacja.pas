@@ -28,13 +28,18 @@ type
     constructor Create(const ANumerKlienta: String; ARodzaj: TTypElementu;
         ARodzajUslugi: TRodzajUslugi; ARozpoczeciePrac: TDateTime; AStatus:
         TStatusElementu); overload;
-    function Equals(AObject: TObject): Boolean;
+    function Equals(AObject: TObject): Boolean; virtual;
     property NumerKlienta: String read FNumerKlienta write SetNumerKlienta;
     property Rodzaj: TTypElementu read FRodzaj write SetRodzaj;
     property RodzajUslugi: TRodzajUslugi read FRodzajUslugi write SetRodzajUslugi;
     property RozpoczeciePrac: TDateTime read FRozpoczeciePrac write SetRozpoczeciePrac;
     property Status: TStatusElementu read FStatus write SetStatus;
     property ZakonczeniePrac: TDateTime read FZakonczeniePrac write SetZakonczeniePrac;
+  end;
+
+  TRezerwacjaNullObject = class(TRezerwacja)
+  public
+    function Equals(AObject: TObject): Boolean; override;
   end;
 
 implementation
@@ -125,6 +130,11 @@ end;
 procedure TRezerwacja.SetZakonczeniePrac(const aValue: TDateTime);
 begin
   FZakonczeniePrac := aValue;
+end;
+
+function TRezerwacjaNullObject.Equals(AObject: TObject): Boolean;
+begin
+  Result := False;
 end;
 
 end.

@@ -58,7 +58,7 @@ begin
       v_Rezerwacja := FZasoby[i].Rezerwacje[j];
       if (v_Rezerwacja.NumerKlienta =  aNumerKlienta) and (v_Rezerwacja.RodzajUslugi = aRodzajUslugi) and (v_Rezerwacja.Status = seRezerwacja) and (aKiedy = v_Rezerwacja.RozpoczeciePrac) then
       begin
-        v_Rezerwacja.Remove(v_Rezerwacja);
+        FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
         Break;
       end;
     end;
@@ -118,9 +118,8 @@ function TPlanowanie.WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi:
     TRodzajUslugi; aNumerKlienta: String; aRodzajElementu: TTypElementu):
     TRezerwacja;
 var
-  i, j: Integer;
+  i: Integer;
   v_Zasob: TZasob;
-  v_Rezerwacja: TRezerwacja;
 begin
   Result := nil;
   for i := 0 to FZasoby.Count -1 do
@@ -133,7 +132,7 @@ begin
     then
     begin
       Result := TRezerwacja.Create(
-        aNumerKlienta, '', aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
+        aNumerKlienta, aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
         IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
       );
       v_Zasob.Rezerwacje.Add(Result);

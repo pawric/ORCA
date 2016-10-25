@@ -21,11 +21,12 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 ## Spis treści.
 
 1. [Generalna konwencja](#generalna-konwencja)
-2. [Komnetowanie kodu](#komentowanie-kodu)
+2. [Komentowanie kodu](#komentowanie-kodu)
 3. [Nazewnictwo modułów](#nazewnictwo-modułów)
-4. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
-5. [Nazewnictwo typów nie będących klasami](#nazewnictwo-typów-nie-będących-klasami)
-6. [Nazewnictwo klas i interfejsów](#nazewnictwo-klas-i-interfejsów)
+4. [Zawartość modułów](#zawartość-modułów)
+5. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
+6. [Nazewnictwo typów nie będących klasami](#nazewnictwo-typów-nie-będących-klasami)
+7. [Nazewnictwo klas i interfejsów](#nazewnictwo-klas-i-interfejsów)
 
 ## Generalna konwencja
 
@@ -40,11 +41,31 @@ Jeśli nie wiesz jak kod powinien wyglądać w konkretnej sytuacji a nie jest to
 ## Komentowanie kodu
 
 ###### [Styl [S001](#styl-s001)]
+Komentarze w kodzie o ile je stosujemy powinny być jasne i związane z implementowaną funkcjonalnością. Generalnie nie powinno się komentować kodu bo jesli czujesz, że masz potrzebę coś w nim dodatkowo wyjasnić to znaczy przeważnie, że jest zbyt zagmatwany by go zorzumieć po przeczytaniu. Niemniej jednak jeśli już musisz coś zakomentować to zrób to w taki sposób aby inni nie mieli problemu z odczytaniem komentarza.
 
-Komentarze w kodzie o ile je stosujemy powinny być jasne i związane z implementowaną funkcjonalnością. Generalnie nie powinno się komentować kodu bo jesli czujesz, że masz potrzebę coś w nim dodatkowo wyjasnić to znaczy przeważnie, że jest zbyt zagmatwany by go zorzumieć po przeczytaniu. Niemniej jednak jeśli już musisz coś zakomentować to zrób to w taki sposób aby inni nie mieli problemu z odczytaniem komentarza, czyli:
+*Przykład nadmiarowego komentarza:*
+````pascal
+// funkcja sumuje dwie wartosci
+function Sum(const a, b: Integer): Integer;
+begin
+	// dodajemy a i b zwracamy wynik
+	Result := a +b;
+end;
+````
 
 ###### [Styl [S002](#styl-s002)]
 Jednoliniowe komentarze zawsze zaczynaj komentować nad linią kodu, którego komentarz dotyczy i zaczynaj od **//**a następnie postaw spację i dopiero pisz komentarz.
+
+*Przykład błędnego komentowania*
+````pascal
+function Foo(): Integer; //funkcja robi Foo
+````
+
+*Przykład poprawnego komentarza*
+````pascal
+// funkcja robi Foo
+function Foo(): Integer; 
+````
 
 ###### [Styl [S003](#styl-s003)]
 Komentarze blokowe zawsze zaczynaj od znaków (* po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami *).
@@ -54,27 +75,12 @@ Komentarze blokowe zawsze zaczynaj od znaków (* po czym zrób nową linię i za
 ###### [Styl [S004](#styl-s004)]
 Nie używaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów).
 
-###### [Styl [S005](#styl-s005)]
-Łam linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
+*Dlaczego?*: Kiedyś takie rzeczy były wymagane w kodzie w każdym unicie pisało się licencję i wszystkie informacje o włascicielu czy autorze kodu. Zresztą w niektórych produkcjach ta konwencja nadal obowiązuje. W naszym przypadku nie ma to sensu, gdyż wszystko co napiszemy jest własnością firmy i podlega jej licencjom. Dodatkowo stwarza to problem utrzymowaniowy.
 
-###### [Styl [S006](#styl-s006)]
-Jeśli tworzysz interfejs/klasę to zawsze dokumentuj w komenatrzu przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
+*Informacja*: Jest do odstępstwo do punktów [2.2](http://edn.embarcadero.com/article/10280#2.2) i [2.2.1](http://edn.embarcadero.com/article/10280#2.2.1) z [**OPSG**](#generalna-konwencja).
 
-###### [Styl [S007](#styl-s007)]
-Nie twórz komentarzy w postaci **TODO**, nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
-
-**Przykłady komentowania kodu:**
+*Przykłady nadmiarowego komentarza:*
 ````pascal
-// Poniższe komentarze są zbędne ponieważ wszystko wynika z Kodu
-// funkcja sumuje dwie wartosci
-function Sum(const a, b: Integer): Integer;
-begin
-	// dodajemy a i b zwracamy wynik
-	Result := a +b;
-end;
-
-// Poniższy komentarz to nadmiarowy tekst 
-
 {*************************************************************************************************
 * Autor: Janek Zenek
 * Data wyprodukowania: 2045-01-01
@@ -87,32 +93,53 @@ type
   end; 
 ````
 
+###### [Styl [S005](#styl-s005)]
+Łam linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
+
+*Dlaczego?*: Ponieważ nie zawsze i nie wszyscy pracują z kodem na monitorach dużej rozdzielczości. Często w takich przypadkach odczytanie długiego komentarza jest po prostu trudne.
+
+###### [Styl [S006](#styl-s006)]
+Jeśli tworzysz interfejs/klasę to zawsze dokumentuj w komenatrzu przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
+
+*Dlaczego?*: Otóż ze względu na to iż używamy automatycznego narzędzia do generowania dokumentacji. Dzięki o wiele łatwiej jest przeczytać co dana metoda/klasa/interfejs reprezentuje jeślnie w dokumentacji to już w samym kodzie.
+
+###### [Styl [S007](#styl-s007)]
+Nie twórz komentarzy w postaci **TODO**.
+
+*Dlaczego?*: I tak nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.
+
 **[Powrót do góry](#spis-treści)**
 	
 ## Nazewnictwo modułów
 
 ###### [Zasada [N002](#zasada-n002)]
+Zawsze zaczynaj nazwę nowego modułu od znaku **u** (od unit), po czym dodaj odpowiedni wyróżnik i dopiero nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase). Dopuszczalne są poniższ wyróżniki:
 
-- Nazewnictwo
-			
-	W aktualnej wersji umownie w naszych projektach nazywając moduł zawsze zaczynamy od małej litery u od *unit* a dla poszczególnych typów modułów możemy zastosować następujące zaraz po pierwszej literze wyróżniki:
-	
 	- Dla modułu zawierającego kod formy lub ramki - **frm**
 	- Dla modułu będącego pochodną DataModule - **DM**
 	- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
+	
+**Przykłady nazewnictwa modułów:**
+````pascal
+unit ufrmMain.pas; //moduł zawierający kod formy
+unit uDMCustomer.pas; //moduł pochodny od TDataModule
+unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości ;)
+````
 
-	następnie definiujemy nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase).
+*Dlaczego?*: - Jest to stan zastany. Ze względu na olbrzymią ilość modułów i kodu zmiana tego byłaby wręcz samobójstwem dlatego po prostu tak przyjmujemy.
 
-	**Przykłady nazewnictwa modułów:**
-	````pascal
-	unit ufrmMain.pas; //moduł zawierający kod formy
-	unit uDMCustomer.pas; //moduł pochodny od TDataModule
-	unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości ;)
-	````
+**[Powrót do góry](#spis-treści)**
 
-- Zawartość
+## Zawartość modułów
 
-	Należy dbać o to by zawartość modułu szczególnie w sekcji **interface** odpowiadała chociaż tematycznie jego nazwie. Nawet w przypadku gdy traktujemy moduł jako brakujące w naszym języku **namespace** należy zadbać o to by moduł nie był kombajnem do wszystkiego, a także o to by udostępniać (w miarę możliwości) tylko faktycznie publiczne API. Moduł powinien być w miarę możliwości mały pod względem ilości linii kodu, a w sekcji **uses** zarówno w w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
+###### [Zasada [N003](#zasada-n003)]
+Zawsze dbaj o to by zawartość modułu szczególnie w sekcji **interface** odpowiadała chociaż tematycznie jego nazwie. Nawet w przypadku gdy traktujemy moduł jako brakujące w naszym języku **namespace** należy zadbać o to by moduł nie był kombajnem do wszystkiego, a także o to by udostępniać (w miarę możliwości) tylko faktycznie publiczne API. 
+
+###### [Zasada [N004](#zasada-n004)]
+Dbaj o to by moduł był w miarę możliwości mały pod względem ilości linii kodu.
+
+###### [Zasada [N005](#zasada-n005)]
+Unikaj generowanie zbędnych zależności. W sekcji **uses** zarówno w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
 
 **[Powrót do góry](#spis-treści)**
 	

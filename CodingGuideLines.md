@@ -77,7 +77,7 @@ Nie używaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w 
 
 *Dlaczego?*: Kiedyś takie rzeczy były wymagane w kodzie w każdym unicie pisało się licencję i wszystkie informacje o włascicielu czy autorze kodu. Zresztą w niektórych produkcjach ta konwencja nadal obowiązuje. W naszym przypadku nie ma to sensu, gdyż wszystko co napiszemy jest własnością firmy i podlega jej licencjom. Dodatkowo stwarza to problem utrzymowaniowy.
 
-*Informacja*: Jest do odstępstwo do punktów [2.2](http://edn.embarcadero.com/article/10280#2.2) i [2.2.1](http://edn.embarcadero.com/article/10280#2.2.1) z [**OPSG**](#generalna-konwencja).
+*Informacja*: Jest to odstępstwo do punktów [2.2](http://edn.embarcadero.com/article/10280#2.2) i [2.2.1](http://edn.embarcadero.com/article/10280#2.2.1) z [**OPSG**](#generalna-konwencja).
 
 *Przykłady nadmiarowego komentarza:*
 ````pascal
@@ -115,9 +115,9 @@ Nie twórz komentarzy w postaci **TODO**.
 ###### [Zasada [N002](#zasada-n002)]
 Zawsze zaczynaj nazwę nowego modułu od znaku **u** (od unit), po czym dodaj odpowiedni wyróżnik i dopiero nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase). Dopuszczalne są poniższ wyróżniki:
 
-	- Dla modułu zawierającego kod formy lub ramki - **frm**
-	- Dla modułu będącego pochodną DataModule - **DM**
-	- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
+- Dla modułu zawierającego kod formy lub ramki - **frm**
+- Dla modułu będącego pochodną DataModule - **DM**
+- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
 	
 **Przykłady nazewnictwa modułów:**
 ````pascal
@@ -126,7 +126,9 @@ unit uDMCustomer.pas; //moduł pochodny od TDataModule
 unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości ;)
 ````
 
-*Dlaczego?*: - Jest to stan zastany. Ze względu na olbrzymią ilość modułów i kodu zmiana tego byłaby wręcz samobójstwem dlatego po prostu tak przyjmujemy.
+*Dlaczego?*: Jest to stan zastany. Ze względu na olbrzymią ilość modułów i kodu zmiana tego byłaby wręcz samobójstwem dlatego po prostu tak przyjmujemy.
+
+*Informacja*: Jest to odstępstwo od informacji dotyczących nazywania plików źródłowych zawratych w punktach [2.0](http://edn.embarcadero.com/article/10280#2.0) i [2.1](http://edn.embarcadero.com/article/10280#2.1) (**OPSG**)[#generalna-konwencja].
 
 **[Powrót do góry](#spis-treści)**
 
@@ -139,7 +141,7 @@ Zawsze dbaj o to by zawartość modułu szczególnie w sekcji **interface** odpo
 Dbaj o to by moduł był w miarę możliwości mały pod względem ilości linii kodu.
 
 ###### [Zasada [N005](#zasada-n005)]
-Unikaj generowanie zbędnych zależności. W sekcji **uses** zarówno w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
+Unikaj generowania zbędnych zależności. W sekcji **uses** zarówno w części **implementation** jak i **interface** powinno się włączać tylko i wyłącznie moduły potrzebne do implementacji, wszystkie nadmiarowe powinny zostać usunięte.
 
 **[Powrót do góry](#spis-treści)**
 	

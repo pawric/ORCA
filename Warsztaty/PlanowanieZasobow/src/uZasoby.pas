@@ -3,28 +3,35 @@ unit uZasoby;
 interface
 
 uses
-  uRezerwacja, uZasob, uZasobLista;
+  Contnrs, uRezerwacja, uZasob;
 
 type
   TZasoby = class(TObject)
   private
-    FItems: TZasobLista;
+    FItems: TObjectList;
     function GetCount: Integer;
     function GetItems(Index: Integer): TZasob;
     procedure SetItems(Index: Integer; const Value: TZasob);
   public
     constructor Create();
     destructor Destroy; Override;
+    function Add(AZasob: TZasob): Integer;
+    function Remove(AZasob: TZasob): Integer;
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TZasob read GetItems write SetItems; default;
   end;
 
 implementation
 
+function TZasoby.Add(AZasob: TZasob): Integer;
+begin
+  Result := FItems.Add(AZasob);
+end;
+
 constructor TZasoby.Create;
 begin
   inherited;
-  FItems := TZasobLista.Create();
+  FItems := TObjectList.Create();
 end;
 
 destructor TZasoby.Destroy;
@@ -40,7 +47,12 @@ end;
 
 function TZasoby.GetItems(Index: Integer): TZasob;
 begin
-  Result := FItems[Index];
+  Result := TZasob(FItems[Index]);
+end;
+
+function TZasoby.Remove(AZasob: TZasob): Integer;
+begin
+  result := FItems.Remove(AZasob);
 end;
 
 procedure TZasoby.SetItems(Index: Integer; const Value: TZasob);

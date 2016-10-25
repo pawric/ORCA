@@ -15,11 +15,12 @@ uses
   uZasob in '..\src\uZasob.pas',
   uPlanowanieTypes in '..\src\uPlanowanieTypes.pas',
   uRezerwacja in '..\src\uRezerwacja.pas',
-  uZasobLista in '..\src\uZasobLista.pas',
   uZasoby in '..\src\uZasoby.pas',
   uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
   UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
-  UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas';
+  UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas',
+  uRezerwacje in '..\src\uRezerwacje.pas',
+  uDateUtils in '..\src\uDateUtils.pas';
 
 {$IFDEF DUNIT_CONSOLE_MODE}
   {$APPTYPE CONSOLE}

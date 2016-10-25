@@ -6,7 +6,7 @@ uses
   Classes, Contnrs, uPlanowanieTypes, uZasoby, uRezerwacja;
 
 const
-  CzasWykonaniaUslugi: array[teNaprawa..teKonserwacja] of integer = (
+  CzasWykonaniaUslugi: array[ruNaprawa..ruKonserwacja] of integer = (
     180, 120, 360
   );
 
@@ -25,7 +25,6 @@ type
   TPlanowanie = class(TObject)
   private
     FZasoby: TZasoby;
-    function DateBetween(ADataPorownywana, ADataPoczatkowa, ADataKoncowa: TDateTime): Boolean;
   public
     constructor Create();
     Destructor Destroy; override;
@@ -48,21 +47,19 @@ uses
 function TPlanowanie.AnulujRezerwacje(aNumerKlienta: String;
   aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
 var
-  i: Integer;
-  j: Integer;
+  i, j: Integer;
+  v_Rezerwacja: TRezerwacja;
 begin
   Result := False;
   for i := 0 to FZasoby.Count -1 do
   begin
-    for j := FZasoby[i].Count - 1 downto 0 do
+    for j := FZasoby[i].Rezerwacje.Count - 1 downto 0 do
     begin
-      with FZasoby[i][j] do
+      v_Rezerwacja := FZasoby[i].Rezerwacje[j];
+      if (v_Rezerwacja.NumerKlienta =  aNumerKlienta) and (v_Rezerwacja.RodzajUslugi = aRodzajUslugi) and (v_Rezerwacja.Status = seRezerwacja) and (aKiedy = v_Rezerwacja.RozpoczeciePrac) then
       begin
-        if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
-        begin
-          FZasoby[i].Remove(FZasoby[i][j]);
-          Break;
-        end;
+        v_Rezerwacja.Remove(v_Rezerwacja);
+        Break;
       end;
     end;
   end;
@@ -80,31 +77,23 @@ begin
   inherited;
 end;
 
-function TPlanowanie.DateBetween(ADataPorownywana, ADataPoczatkowa,
-    ADataKoncowa: TDateTime): Boolean;
-begin
-  Result := (CompareDate(ADataPorownywana, ADataPoczatkowa) in [0,1]) and ((CompareDate(ADataPorownywana, ADataKoncowa) = -1) or (CompareDate(ADataPorownywana, ADataKoncowa) = 0));
-end;
-
 function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String;
   aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime): Boolean;
 var
-  i: Integer;
-  j: Integer;
+  i, j: Integer;
+  v_Rezerwacja: TRezerwacja;
 begin
   Result := False;
   for i := 0 to FZasoby.Count -1 do
   begin
-    for j := 0 to FZasoby[i].Count - 1 do
+    for j := 0 to FZasoby[i].Rezerwacje.Count - 1 do
     begin
-      with FZasoby[i][j] do
+      v_Rezerwacja := FZasoby[i].Rezerwacje[j];
+      if (v_Rezerwacja.NumerKlienta =  aNumerKlienta) and (v_Rezerwacja.RodzajUslugi = aRodzajUslugi) and (v_Rezerwacja.Status = seRezerwacja) and (aKiedy = v_Rezerwacja.RozpoczeciePrac) then
       begin
-        if (NumerKlienta =  aNumerKlienta) and (RodzajUslugi = aRodzajUslugi) and (Status = seRezerwacja) and (aKiedy = RozpoczeciePrac) then
-        begin
-          Status := sePotwierdzonePrzybycie;
-          Result := True;
-          Break;
-        end;
+        v_Rezerwacja.Status := sePotwierdzonePrzybycie;
+        Result := True;
+        Break;
       end;
     end;
   end;
@@ -130,39 +119,25 @@ function TPlanowanie.WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi:
     TRezerwacja;
 var
   i, j: Integer;
+  v_Zasob: TZasob;
+  v_Rezerwacja: TRezerwacja;
 begin
   Result := nil;
   for i := 0 to FZasoby.Count -1 do
   begin
-    if (aRodzajUslugi in FZasoby[i].WykonywaneUslugi) and (aRodzajElementu in FZasoby[i].AkceptowaneElementy) then
+    v_Zasob := FZasoby[i];
+    if v_Zasob.CzyUslugaObslugiwana(aRodzajUslugi) and
+       v_Zasob.CzyElementObslugiwany(aRodzajElementu) and
+       v_Zasob.CzyDostepny(aKiedy) and
+       not v_Zasob.CzyZarezerwowany(aKiedy)
+    then
     begin
-      if DateBetween(aKiedy, FZasoby[i].DostepnyOd, FZasoby.Items[i].DostepnyDo) then
-      begin
-        //lista elementow na stonowisku jest pusta wiec mozna uzyc wlasciwego stanowiska
-        if FZasoby[i].Count = 0 then
-        begin
-          Result := TRezerwacja.Create(
-            aNumerKlienta, '', aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
-            IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
-          );
-          FZasoby[i].Add(Result);
-        end
-        else
-        begin
-          for j := 0 to FZasoby[i].Count-1 do
-          begin
-             if not DateBetween(aKiedy, FZasoby[i][j].RozpoczeciePrac, FZasoby[i][j].ZakonczeniePrac) then
-             begin
-                Result := TRezerwacja.Create(
-                  aNumerKlienta, '', aRodzajElementu,
-                  aRodzajUslugi, aKiedy, seRezerwacja,
-                  IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
-                );
-                FZasoby[i].Add(Result);
-             end;
-          end;
-        end;
-      end;
+      Result := TRezerwacja.Create(
+        aNumerKlienta, '', aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
+        IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
+      );
+      v_Zasob.Rezerwacje.Add(Result);
+      break;
     end;
   end;
 end;

@@ -25,8 +25,8 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 3. [Nazewnictwo modułów](#nazewnictwo-modułów)
 4. [Zawartość modułów](#zawartość-modułów)
 5. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
-6. [Nazewnictwo typów nie będących klasami](#nazewnictwo-typów-nie-będących-klasami)
-7. [Nazewnictwo klas i interfejsów](#nazewnictwo-klas-i-interfejsów)
+7. [Nazewnictwo typów](#nazewnictwo-typów)
+8. [Nazewnictwo metod funkcji procedur](#nazewnictwo-metod-funkcji-procedur)
 
 ## Generalna konwencja
 
@@ -147,57 +147,161 @@ Unikaj generowania zbędnych zależności. W sekcji **uses** zarówno w części
 	
 ## Nazewnictwo identyfikatorów
 
-- Podczas budowania nazwy identyfikatora powinieneś się starać jasno okreslić jego znaczenie nawet jeśli nazwa będzie długa. Niedopuszczalne jest stosowanie nazw identyfikatorów jednoliterowych nie mówiących nic. Wyjątek stanowią lokalne zmienne kontrolne pętli.
+###### [Zasada [N006](#zasada-n006)]
+Zawsze nadawaj identyfikatorom znaczenie odpowiednie do tego co reprezentują nawet jeśli to spowoduje potrzebę wygenerowania długiej nazwy identyfikatora.
+
+###### [Zasada [N007](#zasada-n007)]
+Niedopuszczalne jest stosowanie nazw identyfikatorów jednoliterowych nie mówiących nic. Wyjątek stanowią lokalne zmienne kontrolne pętli.
 		
-	Przykład błędny:
-	````pascal
-	function ObliczSume(const aTowary: TTowaryLista): Currency;
-	var
-	  a: Currency;
-	  i: Integer;
-	begin
-	  for i:=0 to aTowary.Count -1 do 
-	  begin
-		a := aTowary[i].Cena;
-		Result := Result + a;
-	  end;
-	end;
-	````
-	
-	Przykład poprawny:
-	````pascal
-	function ObliczSume(const aTowary: TTowaryLista): Currency;
-	var
-	  v_CenaTowaru: Currency;
-	  i: Integer;
-	begin
-	  for i:=0 to aTowary.Count -1 do 
-	  begin
-		v_CenaTowaru := aTowary[i].Cena;
-		Result := Result + v_CenaTowaru;
-	  end;
-	end;
-	````
-	
-- Stosuj notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) zwracając uwagę na to by każde nowe słowo w nazwie identyfikatora zaczynało się z nowej litery.
-- Unikaj "_"(underscore) w nazwach identyfikatorów (stosujemy kilka wyjątków od tej reguły).
-- Zmienne lokalne w metodach nazywaj zaczynając od prefixu **v_**
+Przykład błędny:
 
-	Przykład:
-	````pascal
-	function Foo(): Integer;
-	var
-	  // poprawnie nazwany identyfikator zmiennej lokalnej w metodzie
-	  v_XPosition: Integer;
-	  // niepoprawnie nazwany identyfikator zmiennej lokalnej w metodzie
-	  yPosition: Integer;
-	begin
-	end;
-	````
-	
-- Zmienne globalne (o ile życie zmusi Cię do ich zastosowania) nazywaj zawsze zaczynając od prefixu **g_**.
-- Nazwy metod w testach jednostkowych (do debaty).
-- Nazwy stałych (do debaty).
+````pascal
+function ObliczSume(const aTowary: TTowaryLista): Currency;
+var
+  a: Currency;
+  i: Integer;
+begin
+  for i:=0 to aTowary.Count -1 do 
+  begin
+	a := aTowary[i].Cena;
+	Result := Result + a;
+  end;
+end;
+````
 
-## Nazewnictwo typów nie będących klasami
-## Nazewnictwo klas i interfejsów
+Przykład poprawny:
+
+````pascal
+function ObliczSume(const aTowary: TTowaryLista): Currency;
+var
+  v_CenaTowaru: Currency;
+  i: Integer;
+begin
+  for i:=0 to aTowary.Count -1 do 
+  begin
+	v_CenaTowaru := aTowary[i].Cena;
+	Result := Result + v_CenaTowaru;
+  end;
+end;
+````
+	
+###### [Zasada [N008](#zasada-n008)]
+Stosuj notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) zwracając uwagę na to by każde nowe słowo w nazwie identyfikatora zaczynało się z nowej litery.
+
+###### [Zasada [N009](#zasada-n009)]
+Unikaj **"_"(underscore)** w nazwach identyfikatorów wyjątkami od tej reguły są [N010](#zasada-n010) oraz [N011](#zasada-n011).
+
+*Dlaczego?*: Taka konwencja.
+
+###### [Zasada [N010](#zasada-n010)]
+**Zmienne lokalne** w metodach zawsze nazywaj zaczynając od prefixu **v_**.
+
+*Dlaczego?* Aby nie pomiksować się czasem z nazwami argumentów czy stałych globalnych funkjonujących już w kodzie. W przypadku gdy lokalna zmienna metody będzie miała taką samą nazwę jak zmienna globalna dostępna w scope kompilator zawsze będzie używał zmiennej globalnej.
+
+**Przykład błędny**
+
+````pascal
+var
+  Cena: Currency;
+  
+function Foo(): Currency;
+var
+  Cena: Currency;
+begin
+end;
+````
+
+**Przykład poprawny**
+
+````pascal
+var
+  cena: Currency;
+  
+function Foo(): Currency;
+var
+  v_Cena: Currency;
+begin
+end;
+````
+
+###### [Zasada [N011](#zasada-n011)]
+**Zmienne globalne** (o ile życie zmusi Cię do ich zastosowania - czyli masz przystawiony pistolet do głowy i każą Ci zdefiniować zmienną glablaną) nazywaj zawsze zaczynając od prefixu **g_**.
+
+*Dlaczego?*: Aby nie nadpisać wartości zmiennych lokalnych metod lub ich argumentów występujących w zasięgu scope.
+
+**Przykład błędny**
+
+````pascal
+var
+  Cena: Currency;
+  
+function Foo(): Currency;
+var
+  Cena: Currency;
+begin
+end;
+````
+
+**Przykład poprawny**
+
+````pascal
+var
+  g_Cena: Currency;
+  
+function Foo(): Currency;
+var
+  Cena: Currency;
+begin
+end;
+````
+
+###### [Zasada [N012](#zasada-n012)]
+
+Nazewnictwo **stałych** pozostaje do ustalenia.
+
+###### [Zasada [N013](#zasada-n013)]
+
+Nazwę prywatengo atrybutu klasy zawsze poprzedzaj literą **F**.
+
+###### [Zasada [N013](#zasada-n013)]
+Nazwy publicznych atrybutów nazywaj stosując [N008](#zasada-n008).
+
+###### [Zasada [N014](#zasada-n014)]
+Nazwy elementów typów wyliczeniowych nazywaj stosując [Hungarian Notation](https://en.wikipedia.org/wiki/Hungarian_notation). Pamiętając o tym by nie stosować zbyt wielu znaków w prefiksie.
+
+**Przykład błędny**
+````pascal
+type
+  TMojTypWyliczeniowy = (mojaWartoscJeden, mojaWartoscDwa);
+````
+
+**Przykład poprawny**
+````pascal
+type
+  // prefix mtw w poniższym zapisie wynika ze skrócenia MojTypWyliczeniowy
+  TMojTypWyliczeniowy = (mtwWartoscJeden, mtwWartoscDwa); 
+````
+
+**[Powrót do góry](#spis-treści)**
+
+## Nazewnictwo typów
+
+###### [Zasada [N015](#zasada-n015)]
+Nazwa typu, kóry definiujesz zawsze powinna zaczynać sie od znaku **T**. Wyjątkiami od tej reguły są interfejsy (**interfaces**) i wyjątki (**exceptions**).
+
+###### [Zasada [N016](#zasada-n016)]
+Nazwa interfejsu musi zaczynać sie od znaku **I**.
+
+###### [Zasada [N017](#zasada-n017)]
+Nazwa wyjątku musi zaczynać się od znaku **E**.
+
+###### [Zasada [N018](#zasada-n018)]
+Nazwa typu, zawsze powinna być rzeczownikiem.
+
+###### [Zasada [N019](#zasada-n019)]
+Podczas nazywania typów stosuj zawsze [N008](#zasada-n008). 
+ 
+**[Powrót do góry](#spis-treści)**
+
+## Nazewnictwo metod funkcji procedur
+

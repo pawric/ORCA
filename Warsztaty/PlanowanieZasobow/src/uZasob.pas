@@ -3,7 +3,7 @@ unit uZasob;
 interface
 
 uses
-  Contnrs, uPlanowanieTypes, uRezerwacje, uRezerwacja;
+  Contnrs, uPlanowanieTypes, uRezerwacjeList, uRezerwacja;
 
 type
   TZasob = class(TObject)

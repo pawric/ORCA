@@ -1,4 +1,4 @@
-unit uRezerwacje;
+unit uRezerwacjeList;
 
 interface
 

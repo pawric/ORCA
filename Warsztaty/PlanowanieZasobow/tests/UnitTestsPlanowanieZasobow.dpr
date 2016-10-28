@@ -19,7 +19,7 @@ uses
   uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
   UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
   UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas',
-  uRezerwacje in '..\src\uRezerwacje.pas',
+  uRezerwacjeList in '..\src\uRezerwacjeList.pas',
   uDateUtils in '..\src\uDateUtils.pas',
   UnitTestRezerwacja in 'UnitTests\UnitTestRezerwacja.pas';
 

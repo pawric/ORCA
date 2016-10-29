@@ -67,7 +67,7 @@ end;
 
 function TStanowisko.CzyJestDostepny(AKiedy: TDateTime): Boolean;
 begin
-  Result := TDateUtile.DateBetween(AKiedy, FDostepnyDo, FDostepnyDo);
+  Result := TDateUtile.DateBetween(AKiedy, FDostepnyOd, FDostepnyDo);
 end;
 
 function TStanowisko.CzyObslugujeElement(ATypElementu: TTypElementu): Boolean;

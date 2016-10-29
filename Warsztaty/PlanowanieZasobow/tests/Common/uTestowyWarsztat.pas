@@ -23,7 +23,7 @@ uses
 constructor TTestowyWarsztat.Create;
 begin
   inherited;
-  FStanowiska.Add(
+  Stanowiska.Add(
     TStanowisko.Create(
       [teSamochod],
       EncodeDate(2016, 1,1) + EncodeTime(18,0,0,0),

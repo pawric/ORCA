@@ -24,10 +24,9 @@ type
 
   TPlanowanie = class(TObject)
   private
-    FZasoby: TStanowiskoList;
+    FStanowiska: TStanowiskoList;
   public
-    constructor Create();
-    Destructor Destroy; override;
+    constructor Create(AZasoby: TStanowiskoList);
     function WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi: TRodzajUslugi; aNumerKlienta: String; aRodzajElementu: TTypElementu): TRezerwacja;
     function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
     function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
@@ -54,12 +53,12 @@ begin
   Result := False;
   v_SzukanaRezerwacja := TRezerwacja.Create(aNumerKlienta, aTypElementu, aRodzajUslugi, aKiedy, seRezerwacja, aKiedy);
   try
-    for i := 0 to FZasoby.Count -1 do
+    for i := 0 to FStanowiska.Count -1 do
     begin
-      v_Rezerwacja := FZasoby[i].Rezerwacje.Find(v_SzukanaRezerwacja);
+      v_Rezerwacja := FStanowiska[i].Rezerwacje.Find(v_SzukanaRezerwacja);
       if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
       begin
-        FZasoby[i].Rezerwacje.Remove(v_Rezerwacja);
+        FStanowiska[i].Rezerwacje.Remove(v_Rezerwacja);
         Break;
       end;
     end;
@@ -68,16 +67,10 @@ begin
   end;
 end;
 
-constructor TPlanowanie.Create;
+constructor TPlanowanie.Create(AZasoby: TStanowiskoList);
 begin
-  inherited;
-  FZasoby := TStanowiskoList.Create();
-end;
-
-destructor TPlanowanie.Destroy;
-begin
-  FZasoby.Free();
-  inherited;
+  inherited Create();
+  FStanowiska := AZasoby;
 end;
 
 function TPlanowanie.PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi:
@@ -90,9 +83,9 @@ begin
   Result := False;
   v_SzukanaRezerwacja := TRezerwacja.Create(aNumerKlienta, aTypElementu, aRodzajUslugi, aKiedy, seRezerwacja);
   try
-    for i := 0 to FZasoby.Count -1 do
+    for i := 0 to FStanowiska.Count -1 do
     begin
-      v_Rezerwacja := FZasoby[i].Rezerwacje.Find(v_SzukanaRezerwacja);
+      v_Rezerwacja := FStanowiska[i].Rezerwacje.Find(v_SzukanaRezerwacja);
       if v_Rezerwacja.Equals(v_SzukanaRezerwacja) then
       begin
         v_Rezerwacja.Status := sePotwierdzonePrzybycie;
@@ -128,9 +121,9 @@ var
   v_Zasob: TStanowisko;
 begin
   Result := nil;
-  for i := 0 to FZasoby.Count -1 do
+  for i := 0 to FStanowiska.Count -1 do
   begin
-    v_Zasob := FZasoby[i];
+    v_Zasob := FStanowiska[i];
     if v_Zasob.CzyObslugujeUsluge(aRodzajUslugi) and
        v_Zasob.CzyObslugujeElement(aRodzajElementu) and
        v_Zasob.CzyJestDostepny(aKiedy) and

@@ -131,7 +131,11 @@ begin
     then
     begin
       Result := TRezerwacja.Create(
-        aNumerKlienta, aRodzajElementu, aRodzajUslugi, aKiedy, seRezerwacja,
+        aNumerKlienta,
+        aRodzajElementu,
+        aRodzajUslugi,
+        aKiedy,
+        seRezerwacja,
         IncMinute(aKiedy, CzasWykonaniaUslugi[aRodzajUslugi] + 10)
       );
       v_Zasob.Rezerwacje.Add(Result);

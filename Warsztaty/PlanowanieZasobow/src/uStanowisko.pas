@@ -1,4 +1,4 @@
-unit uZasob;
+unit uStanowisko;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   Contnrs, uPlanowanieTypes, uRezerwacjeList, uRezerwacja;
 
 type
-  TZasob = class(TObject)
+  TStanowisko = class(TObject)
   private
     FAkceptowaneElementy: TTypyElementow;
     FDostepnyDo: TDateTime;
@@ -46,7 +46,7 @@ implementation
 
 uses Classes, uDateUtils;
 
-constructor TZasob.Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
+constructor TStanowisko.Create(AAkceptowaneElementy: TTypyElementow; ADostepnyDo,
     ADostepnyOd: TDateTime; const ANazwa: String; ARodzaj: Integer;
     AWykonaywaneUslugi: TRodzajeUslug);
 begin
@@ -59,23 +59,23 @@ begin
   FWykonywaneUslugi := AWykonaywaneUslugi;
 end;
 
-constructor TZasob.Create;
+constructor TStanowisko.Create;
 begin
   inherited Create();
   FRezerwacje := TRezerwacje.Create();
 end;
 
-function TZasob.CzyJestDostepny(AKiedy: TDateTime): Boolean;
+function TStanowisko.CzyJestDostepny(AKiedy: TDateTime): Boolean;
 begin
   Result := TDateUtile.DateBetween(AKiedy, FDostepnyDo, FDostepnyDo);
 end;
 
-function TZasob.CzyObslugujeElement(ATypElementu: TTypElementu): Boolean;
+function TStanowisko.CzyObslugujeElement(ATypElementu: TTypElementu): Boolean;
 begin
   Result := ATypElementu in FAkceptowaneElementy;
 end;
 
-function TZasob.CzyJestZarezerwowany(AKiedy: TDateTime): Boolean;
+function TStanowisko.CzyJestZarezerwowany(AKiedy: TDateTime): Boolean;
 var
   i: Integer;
   v_Rezerwacja: TRezerwacja;
@@ -92,43 +92,43 @@ begin
   end;
 end;
 
-function TZasob.CzyObslugujeUsluge(ARodzajUslugi: TRodzajUslugi): Boolean;
+function TStanowisko.CzyObslugujeUsluge(ARodzajUslugi: TRodzajUslugi): Boolean;
 begin
   Result := ARodzajUslugi in FWykonywaneUslugi;
 end;
 
-destructor TZasob.Destroy;
+destructor TStanowisko.Destroy;
 begin
   FRezerwacje.Free();
   inherited Destroy;
 end;
 
-procedure TZasob.SetAkceptowaneElementy(const aValue: TTypyElementow);
+procedure TStanowisko.SetAkceptowaneElementy(const aValue: TTypyElementow);
 begin
   FAkceptowaneElementy := aValue;
 end;
 
-procedure TZasob.SetDostepnyDo(const aValue: TDateTime);
+procedure TStanowisko.SetDostepnyDo(const aValue: TDateTime);
 begin
   FDostepnyDo := aValue;
 end;
 
-procedure TZasob.SetDostepnyOd(const aValue: TDateTime);
+procedure TStanowisko.SetDostepnyOd(const aValue: TDateTime);
 begin
   FDostepnyOd := aValue;
 end;
 
-procedure TZasob.SetNazwa(const aValue: String);
+procedure TStanowisko.SetNazwa(const aValue: String);
 begin
   FNazwa := aValue;
 end;
 
-procedure TZasob.SetRodzaj(const aValue: Integer);
+procedure TStanowisko.SetRodzaj(const aValue: Integer);
 begin
   FRodzaj := aValue;
 end;
 
-procedure TZasob.SetWykonywaneUslugi(const aValue: TRodzajeUslug);
+procedure TStanowisko.SetWykonywaneUslugi(const aValue: TRodzajeUslug);
 begin
   FWykonywaneUslugi := aValue;
 end;

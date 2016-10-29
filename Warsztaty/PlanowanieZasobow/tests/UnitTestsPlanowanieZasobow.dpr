@@ -12,16 +12,17 @@ uses
   uPlanowanie in '..\src\uPlanowanie.pas',
   uNotyfikacje in '..\src\uNotyfikacje.pas',
   uGrafik in '..\src\uGrafik.pas',
-  uZasob in '..\src\uZasob.pas',
+  uStanowisko in '..\src\uStanowisko.pas',
   uPlanowanieTypes in '..\src\uPlanowanieTypes.pas',
   uRezerwacja in '..\src\uRezerwacja.pas',
-  uZasobyList in '..\src\uZasobyList.pas',
+  uStanowiskoList in '..\src\uStanowiskoList.pas',
   uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
   UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
   UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas',
   uRezerwacjeList in '..\src\uRezerwacjeList.pas',
   uDateUtils in '..\src\uDateUtils.pas',
-  UnitTestRezerwacja in 'UnitTests\UnitTestRezerwacja.pas';
+  UnitTestRezerwacja in 'UnitTests\UnitTestRezerwacja.pas',
+  uTestowyWarsztat in 'Common\uTestowyWarsztat.pas';
 
 {$IFDEF DUNIT_CONSOLE_MODE}
   {$APPTYPE CONSOLE}

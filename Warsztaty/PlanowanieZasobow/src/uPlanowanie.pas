@@ -3,7 +3,7 @@ unit uPlanowanie;
 interface
 
 uses
-  Classes, Contnrs, uPlanowanieTypes, uZasobyList, uRezerwacja;
+  Classes, Contnrs, uPlanowanieTypes, uStanowiskoList, uRezerwacja;
 
 const
   CzasWykonaniaUslugi: array[ruNaprawa..ruKonserwacja] of integer = (
@@ -24,7 +24,7 @@ type
 
   TPlanowanie = class(TObject)
   private
-    FZasoby: TZasobyList;
+    FZasoby: TStanowiskoList;
   public
     constructor Create();
     Destructor Destroy; override;
@@ -40,7 +40,7 @@ implementation
 { TZasoby }
 
 uses
-  DateUtils, uZasob;
+  DateUtils, uStanowisko;
 
 { TPlanowanie }
 
@@ -71,7 +71,7 @@ end;
 constructor TPlanowanie.Create;
 begin
   inherited;
-  FZasoby := TZasobyList.Create();
+  FZasoby := TStanowiskoList.Create();
 end;
 
 destructor TPlanowanie.Destroy;
@@ -125,7 +125,7 @@ function TPlanowanie.WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi:
     TRezerwacja;
 var
   i: Integer;
-  v_Zasob: TZasob;
+  v_Zasob: TStanowisko;
 begin
   Result := nil;
   for i := 0 to FZasoby.Count -1 do

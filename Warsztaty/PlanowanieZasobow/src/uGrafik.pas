@@ -3,7 +3,7 @@ unit uGrafik;
 interface
 
 uses
-  uPlanowanie, uRezerwacja, uZasob, uPlanowanieTypes;
+  uPlanowanie, uRezerwacja, uStanowisko, uPlanowanieTypes;
 type
   TElementGraficzny = class(TObject)
   end;
@@ -17,9 +17,9 @@ type
 
   TGraficznyRodzajUslugi = class(TElementGraficzny)
   private
-    FZasob: TZasob;
+    FZasob: TStanowisko;
   public
-    constructor Create(const aZasob: TZasob);
+    constructor Create(const aZasob: TStanowisko);
   end;
 
   TGrafik = class(TObject)
@@ -46,7 +46,7 @@ end;
 
 { TGraficznyRodzajUslugi }
 
-constructor TGraficznyRodzajUslugi.Create(const aZasob: TZasob);
+constructor TGraficznyRodzajUslugi.Create(const aZasob: TStanowisko);
 begin
   inherited Create();
   FZasob := aZasob;

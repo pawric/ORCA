@@ -3,12 +3,12 @@ unit UnitTestZasob;
 interface
 
 uses
-  TestFramework, uZasob, uRezerwacja;
+  TestFramework, uStanowisko, uRezerwacja;
 
 type
   TZasobTestCase = class(TTestCase)
   private
-    FZasob: TZasob;
+    FZasob: TStanowisko;
   protected
     procedure SetUp; override;
     procedure TearDown; override;
@@ -26,7 +26,7 @@ implementation
 procedure TZasobTestCase.SetUp;
 begin
   inherited;
-  FZasob := TZasob.Create();
+  FZasob := TStanowisko.Create();
 end;
 
 procedure TZasobTestCase.TearDown;

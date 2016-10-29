@@ -3,7 +3,7 @@ unit uPlanowanie;
 interface
 
 uses
-  Classes, Contnrs, uPlanowanieTypes, uZasoby, uRezerwacja;
+  Classes, Contnrs, uPlanowanieTypes, uZasobyList, uRezerwacja;
 
 const
   CzasWykonaniaUslugi: array[ruNaprawa..ruKonserwacja] of integer = (
@@ -24,15 +24,13 @@ type
 
   TPlanowanie = class(TObject)
   private
-    FZasoby: TZasoby;
+    FZasoby: TZasobyList;
   public
     constructor Create();
     Destructor Destroy; override;
     function WykonajRezerwacje(aKiedy: TDateTime; aRodzajUslugi: TRodzajUslugi; aNumerKlienta: String; aRodzajElementu: TTypElementu): TRezerwacja;
-    function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi:
-        TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
-    function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi;
-        aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
+    function PotwierdzRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
+    function AnulujRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy: TDateTime; aTypElementu: TTypElementu): Boolean;
     function PrzelozRezerwacje(aNumerKlienta: String; aRodzajUslugi: TRodzajUslugi; aKiedy, aNaKiedy: TDateTime; aRodzajElementu: TTypElementu): Boolean;
     procedure AktualizujWidok();
   end;
@@ -73,7 +71,7 @@ end;
 constructor TPlanowanie.Create;
 begin
   inherited;
-  FZasoby := TZasoby.Create();
+  FZasoby := TZasobyList.Create();
 end;
 
 destructor TPlanowanie.Destroy;

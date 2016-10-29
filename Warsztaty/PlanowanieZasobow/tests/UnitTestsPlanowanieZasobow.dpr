@@ -15,7 +15,7 @@ uses
   uZasob in '..\src\uZasob.pas',
   uPlanowanieTypes in '..\src\uPlanowanieTypes.pas',
   uRezerwacja in '..\src\uRezerwacja.pas',
-  uZasoby in '..\src\uZasoby.pas',
+  uZasobyList in '..\src\uZasobyList.pas',
   uPlanowanieZasobowTestSuite in 'TestSuites\uPlanowanieZasobowTestSuite.pas',
   UnitTestZasob in 'UnitTests\UnitTestZasob.pas',
   UnitTestPlanowanie in 'UnitTests\UnitTestPlanowanie.pas',

@@ -113,20 +113,28 @@ Nie twórz komentarzy w postaci **TODO**.
 ## Nazewnictwo modułów
 
 ###### [Zasada [N002](#zasada-n002)]
-Zawsze zaczynaj nazwę nowego modułu od znaku **u** (od unit), po czym dodaj odpowiedni wyróżnik i dopiero nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase). Dopuszczalne są poniższ wyróżniki:
+Zawsze zaczynaj nazwę nowego modułu od znaku **u** (od unit), po czym dodaj odpowiedni wyróżnik i dopiero nazwę modułu stosując notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase). Nazwa modułu może być zbudowana tylko i wyłącznie wg poniższego formatu (*ustalenie z dnia 2016-10-28:ORCA OOP*)
 
-- Dla modułu zawierającego kod formy lub ramki - **frm**
-- Dla modułu będącego pochodną DataModule - **DM**
-- Dla modułu nie mającego związku z żadnym z powyższych nie stosujemy żadnego wyróżnika
+**u[NazwaModulu][WyróznikModułu].pas**
+
+gdzie 
+
+- **NazwaModułu** jest polską nazwą stosowną do domeny, której dany moduł dotyczy,
+- **WyróznikModułu** jest angielską specyfikacją tego co moduł zawiera.
 	
+Budując pełną nazwę pliku modułu zawsze używaj całych słów (zarówno w **NazwieModułu** jak i **WyróżnikuModułu**), bedących rzeczownkiami.
+
 **Przykłady nazewnictwa modułów:**
 ````pascal
-unit ufrmMain.pas; //moduł zawierający kod formy
-unit uDMCustomer.pas; //moduł pochodny od TDataModule
-unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości ;)
+unit uKlientForm.pas; //moduł zawierający kod formy związany domenowo z klientem
+unit uKlientFrame.pas //moduł zawierający kod ramki związany domenowo z klientem
+unit uKlientDataModule.pas; //moduł pochodny od TDataModule związany domenowo 
+unit uMojaWlasnaSuperKlasaObfitosciInterface.pas; //moduł zawierający deklarację interfejsu 
+unit uMojaWlasnaSuperKlasaObfitosciClass.pas; //moduł zawierający kod klasy obfitości  ??
+unit uKlientList.pas; //moduł zawierający listę, której elemntami są encje typu TKlient
 ````
 
-*Dlaczego?*: Jest to stan zastany. Ze względu na olbrzymią ilość modułów i kodu zmiana tego byłaby wręcz samobójstwem dlatego po prostu tak przyjmujemy.
+*Dlaczego?*: Istniejący kod, z kórym pracujemy nie posiadał jakiejś sztywnej konwencji w tym zakresie w związku z tym powstała masa modułów, których nazwy często są mylne, lub nie mówiące nic na pierwszy rzut, a czasem wręcz trudne do wymówienia. Uchwałą z dnia 2016-10-28 na spotkaniu zespołu została ustalna taka a nie inna konwencja nazewnictwa modułów i należy ją stosować. W przypadku gdy modyfikujemy jakiś moduł, którego nazwa nie spełnia wymogów tej konwencji, jesteśmy zobligowani do dostosowania jego nazwy do nowej konwencji oczywiście w miarę możliwości.
 
 *Informacja*: Jest to odstępstwo od informacji dotyczących nazywania plików źródłowych zawratych w punktach [2.0](http://edn.embarcadero.com/article/10280#2.0) i [2.1](http://edn.embarcadero.com/article/10280#2.1) (**OPSG**)[#generalna-konwencja].
 

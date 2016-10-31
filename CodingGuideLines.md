@@ -27,6 +27,7 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 5. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
 7. [Nazewnictwo typów](#nazewnictwo-typów)
 8. [Nazewnictwo metod funkcji procedur](#nazewnictwo-metod-funkcji-procedur)
+9. [Baza danych](#baza-danych)
 
 ## Generalna konwencja
 
@@ -313,3 +314,96 @@ Podczas nazywania typów stosuj zawsze [N008](#zasada-n008).
 
 ## Nazewnictwo metod funkcji procedur
 
+## Baza danych 
+
+PONIŻSZE ZASADY DO PRZEGADANIA!!!
+
+###### [Zasada [N020](#zasada-n020)]
+Nazwy tabel oraz kolumn powinny być takie same jak nazwy w modelu (tabela w liczbie mnogiej)
+
+###### [Zasada [N021](#zasada-n021)]
+Identifikatory tabeli (primary key) nazywamy tak jak tabela ale w liczbie pojedynczej i z prefiksem ID
+
+###### [Zasada [N022](#zasada-n022)]
+Dla utrzymania spójności danych w BD, tworzymy klucze główne, klucze obce, unikalne pola (UNIQUE), itd.
+
+###### [Zasada [N023](#zasada-n023)]
+Dla określenia daty w BD używamy typu TIMESTAMP (nigdy string!!!)
+
+**Przykład dla zasad N020 - N022**
+
+pascal
+<pre>
+	type
+	TZasob = class(TObject)
+	private
+		FDostepnyDo: TDateTime;
+		FDostepnyOd: TDateTime;
+		FRezerwacja: TRezerwacja;
+	public
+		proprety DostepnyDo: TDateTime read FDostepnyDo write SetDostepnyDo;
+		proprety DostepnyOd: TDateTime read FDostepnyOd write SetDostepnyOd;
+		property Rezerwacje: TRezerwacje read FRezerwacje;
+	end;
+	
+	TRezerwacja = class(TObject)
+	private
+		FNumerKlienta: String;
+		FNumerRejestracji: String;
+	
+	end;	
+<code>
+SQL
+<pre>	
+	CREATE TABLE REZERWACJE (
+		ID_REZERWACJA		INTEGER NOT NULL, //klucz główny
+		NUMER_KLIENTA		VARCHAR(10),
+		NUMER_REJESTRACJI	VARCHAR(30)
+	)
+	ALTER TABLE REZERWACJE ADD CONSTRAINT PK_REZERWACJE PRIMARY KEY (ID_REZERWACJA);
+
+	CREATE ZASOBY (
+		ID_ZASOB		INTEGER NOT NULL, //klucz główny
+		ID_REZERWACJA	INTEGER NOT NULL, //klucz obcy
+		DOSTEPNY_DO		TIMESTAMP,
+		DOSTEPNY_OD		TIMESTAMP
+	)
+	ALTER TABLE ZASOBY ADD CONSTRAINT PK_ZASOBY PRIMARY KEY (ID_ZASOB);
+	ALTER TABLE ZASOBY ADD CONSTRAINT FK_GRUPY_JEDN FOREIGN KEY (ID_REZERWACJA) REFERENCES REZERWACJE (ID_REZERWACJA) ON DELETE NO ACTION ON UPDATE NO ACTION;
+<code>
+
+###### [Zasada [N025](#zasada-n025)]
+Dla utrzymania spójności danych tworzymy triggery do inicjowania kluczy głównych
+
+SQL
+<pre>
+	CREATE VIEW REZERWACJE_VIEW ...
+<code>
+
+###### [Zasada [N026](#zasada-n026)]
+Nazwy widoków określamy z sufiksem View,
+triggerów - prefiksem TR plus nazwa tabeli, której dotyczy (w niektórych pojektach urzywamy TG więc urzywamy tego)
+generatorów - prefiksem GEN plus nazwa identyfikatora
+
+SQL
+<pre>
+	CREATE VIEW REZERWACJE_VIEW ...
+	
+	CREATE GENERATOR GEN_ID_REZERWACJA;
+	
+	CREATE TRIGGER TR_REZERWACJE FOR REZERWACJE
+	ACTIVE BEFORE INSERT POSITION 0
+	AS
+	BEGIN
+		NEW.ID_REZERWACJA=GEN_ID(GEN_ID_REZERWACJA,1);
+	END^
+<code>
+
+###### [Zasada [N027](#zasada-n027)]
+W miarę możliwości unikamy tworzenia procedur oraz triggerów (z wyjątkiem [N026](#zasada-n026)). Logikę powinniśmy realizować w kodzie domeny. Poprzez realizowanie logiki w jendym miejscu, utrzymanie projektu stanie się prostrze i czytelniejsze.  
+
+###### [Zasada [N028](#zasada-n028)]
+aktualizacje
+
+
+**[Powrót do góry](#spis-treści)**

@@ -21,10 +21,11 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 ## Spis treści.
 
 1. [Generalna konwencja](#generalna-konwencja)
-2. [Komentowanie kodu](#komentowanie-kodu)
-3. [Nazewnictwo modułów](#nazewnictwo-modułów)
-4. [Zawartość modułów](#zawartość-modułów)
-5. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
+2. [Generalny styl kodowania](#generalny-styl-kodowania)
+3. [Komentowanie kodu](#komentowanie-kodu)
+4. [Nazewnictwo modułów](#nazewnictwo-modułów)
+5. [Zawartość modułów](#zawartość-modułów)
+6. [Nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów)
 7. [Nazewnictwo typów](#nazewnictwo-typów)
 8. [Nazewnictwo metod funkcji procedur](#nazewnictwo-metod-funkcji-procedur)
 9. [Baza danych](#baza-danych)
@@ -32,16 +33,63 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 ## Generalna konwencja
 
 ###### [Zasada [N001](#zasada-n001)]
-
 Jeśli nie wiesz jak kod powinien wyglądać w konkretnej sytuacji a nie jest to sprecyzowane w tym dokumencie zawsze posługuj sie [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280).
 
 *Dlaczego?*: Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach jest [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280) ustalamy jedynie odstępstwa od zasad tam wskazanych. A w przypadkach, które nie są określone jeszcze w tym dokumencie nadrzędny jest Object Pascal Style Guide, który w dalszej części będzie zastępowany skrótem (**OPSG**).
 
 **[Powrót do góry](#spis-treści)**
 
-## Komentowanie kodu
+## Generalny styl kodowania
 
 ###### [Styl [S001](#styl-s001)]
+Jeśli robisz wcięcie zawsze rób to przy użyciu 2 spacji. Można ustawić taką opcję w IDE aby wykonywało tę robotę za Ciebie po wciśnięciu **tabulatora**.
+
+###### [Styl [S002](#styl-s002)]
+Łam linie zawsze po osiągnięciu długości 120 znaków. Przy czym jeśli dokonujesz łamania to zrób to w taki sposób by nie utrudniać odczytania kodu innym. Szerokość prawego marginesu tak jak i jego widoczność ustawia się IDE. Podczas łamania linii w przypadku deklaracji metod nie oddzielaj typu argumentu od jego nazwy. Pamiętaj także by nowo utworzona linia zawierała odpowiednie wcięcie.
+
+**Przykłady**
+
+````pascal
+// przykład błędnego złamania tekstu w lini ponieważ oddzielono typ argumentu od jego nazwy. 
+// Nie zachowano także wcięcia
+function Foo(const ANazwaArgumentu: TTypArgumentu; AInnyArgument: 
+TInnyArgument): Integer;
+// przykład poprawnego złamania tekstu
+function Foo(const ANazwaArgumentu: TTypArgumentu; 
+	AInnyArgument: TInnyArgument): Integer;
+	
+//przykład błędnego złamania tekstu w warunku logicznym 
+if (a <> 
+	b) and (c = 
+	d) and (d <> a) then 
+begin
+end;
+	
+// przykład poprawnego złamania tekstu w warunku logicznym
+if (a <> b) and 
+  (c = d) and 
+  (d <> a) then 
+begin
+end;
+````
+
+###### [Styl [S003](#styl-s003)]
+Gdy stosujesz instrukcje blokowe zawsze zamykaj kod, który obejmują w klamrę **begin** na początku bloku w nowej linii **end** na końcu bloku w nowej linii. Wyjątkiem od tej zasady są instrukcje blokowe, które w swoim bloku zawierają tylko jedną linię kodu. 
+
+###### [Styl [S004](#styl-s004)]
+Pamiętaj zawsze by stawiać średnik po słowie kluczowym **end**.
+
+###### [Styl [S005](#styl-s005)]
+Pamiętaj by zmiennych i argumentów w kodzie używać dokładnie tak jak są zadeklarowane. Zmienianie choćby wielkości literek w kodzie względem deklaracji jest złe.
+
+###### [Styl [S006](#styl-s006)]
+W przypadku gdy konstruktor klasy posiada dużą liczbę argumentów, należy każdy z nich podczas inicjowania tej klasy zapisać w nowej linii.
+
+**[Powrót do góry](#spis-treści)**
+
+## Komentowanie kodu
+
+###### [Styl [S007](#styl-s007)]
 Komentarze w kodzie o ile je stosujemy powinny być jasne i związane z implementowaną funkcjonalnością. Generalnie nie powinno się komentować kodu bo jesli czujesz, że masz potrzebę coś w nim dodatkowo wyjasnić to znaczy przeważnie, że jest zbyt zagmatwany by go zorzumieć po przeczytaniu. Niemniej jednak jeśli już musisz coś zakomentować to zrób to w taki sposób aby inni nie mieli problemu z odczytaniem komentarza.
 
 *Przykład nadmiarowego komentarza:*
@@ -54,7 +102,7 @@ begin
 end;
 ````
 
-###### [Styl [S002](#styl-s002)]
+###### [Styl [S008](#styl-s008)]
 Jednoliniowe komentarze zawsze zaczynaj komentować nad linią kodu, którego komentarz dotyczy i zaczynaj od **//**a następnie postaw spację i dopiero pisz komentarz.
 
 *Przykład błędnego komentowania*
@@ -68,12 +116,12 @@ function Foo(): Integer; //funkcja robi Foo
 function Foo(): Integer; 
 ````
 
-###### [Styl [S003](#styl-s003)]
+###### [Styl [S009](#styl-s009)]
 Komentarze blokowe zawsze zaczynaj od znaków (* po czym zrób nową linię i zacznij pisać komentarz zakończ komentarz w nowej linii znakami *).
 
 ##### Generalne zasady
 
-###### [Styl [S004](#styl-s004)]
+###### [Styl [S010](#styl-s011)]
 Nie używaj jakichkolwiek ozdobników w komentarzach (chodzi tu o obramowania w postaci znaków ASCI, czy też jakichś ACII Artów).
 
 *Dlaczego?*: Kiedyś takie rzeczy były wymagane w kodzie w każdym unicie pisało się licencję i wszystkie informacje o włascicielu czy autorze kodu. Zresztą w niektórych produkcjach ta konwencja nadal obowiązuje. W naszym przypadku nie ma to sensu, gdyż wszystko co napiszemy jest własnością firmy i podlega jej licencjom. Dodatkowo stwarza to problem utrzymowaniowy.
@@ -94,17 +142,17 @@ type
   end; 
 ````
 
-###### [Styl [S005](#styl-s005)]
+###### [Styl [S011](#styl-s011)]
 Łam linie do ilości znaków określonych przez **Right Margin** we właściwościach środowiska w edytorze. 
 
 *Dlaczego?*: Ponieważ nie zawsze i nie wszyscy pracują z kodem na monitorach dużej rozdzielczości. Często w takich przypadkach odczytanie długiego komentarza jest po prostu trudne.
 
-###### [Styl [S006](#styl-s006)]
+###### [Styl [S012](#styl-s012)]
 Jeśli tworzysz interfejs/klasę to zawsze dokumentuj w komenatrzu przynajmniej kluczowe znaczenie interfejsu przy pomocy odpowiedniego rozszerzenia IDE (uwaga ta dotyczy, też metod).
 
 *Dlaczego?*: Otóż ze względu na to iż używamy automatycznego narzędzia do generowania dokumentacji. Dzięki o wiele łatwiej jest przeczytać co dana metoda/klasa/interfejs reprezentuje jeślnie w dokumentacji to już w samym kodzie.
 
-###### [Styl [S007](#styl-s007)]
+###### [Styl [S013](#styl-s013)]
 Nie twórz komentarzy w postaci **TODO**.
 
 *Dlaczego?*: I tak nikt tego nie przeczyta kod się pewnie w tym miejscu sypnie a i ty sam zapomnisz za jakiś czas o tym komentarzu.

@@ -266,14 +266,77 @@ end;
 
 ###### [Zasada [N012](#zasada-n012)]
 
-Nazewnictwo **stałych** pozostaje do ustalenia.
+- Podczas definiowania nazwy stałych globalnych używaj notacji w postaci WIELKICH_LITER_ROZDZIELONYCH_UNDERSCORE.
+- Podczas definiowania nazwy stałych lokalnych używaj notacji [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) poprzedzając ją znakiem *c* (małe c - od const).
+
+*Dlaczego?* : Jest to efekt wynikaów ankiety przeprowadzonej w dniu 2016-11-02 pośród członków zespołu.
+
+**Przykład**
+
+````pascal
+unit uDummyUnit;
+
+interface
+
+const
+	MOJA_ZMIENNA_GLOBALNA = 1;
+
+implementation
+
+const 
+	cMojaZmiennaLokalna = 1;
+	
+function Foo(): Integer;
+const
+	cMojaInnaZmiennaLokalna = 1;
+begin
+end;
+
+end.
+````
 
 ###### [Zasada [N013](#zasada-n013)]
+Nazwę prywatnego atrybutu klasy zawsze poprzedzaj literą **F**.
 
-Nazwę prywatengo atrybutu klasy zawsze poprzedzaj literą **F**.
+**Przykłady** 
+
+````pascal
+type
+  TFoo = class(TObject)
+  private    
+	// przykłady niepoprawnej nazwy prywatnego atrybutu klasy 
+	id: Integer;
+	x,y: Integer;
+	__cos: Double;
+    // przykłady poprawnej nazwy prywatnego atrybutu klasy 
+    FIdentyfikator: Integer;	
+	FPozycjaX: Integer;
+	FPozycjaY: Integer;
+	FCos: Double;
+  end;
+````
 
 ###### [Zasada [N013](#zasada-n013)]
 Nazwy publicznych atrybutów nazywaj stosując [N008](#zasada-n008).
+
+**Przykłady**
+
+````pascal
+type
+  TFoo = class(TObject)
+  public
+	// przykłady niepoprawnej nazwy publicznego atrybutu klasy 
+	id: Integer;
+	x,y: Integer;
+	__cos: Double;
+    // przykłady poprawnej nazwy publicznego atrybutu klasy 
+    Identyfikator: Integer;	
+	PozycjaX: Integer;
+  published
+	PozycjaY: Integer;
+	Cos: Double;
+  end;  
+````
 
 ###### [Zasada [N014](#zasada-n014)]
 Nazwy elementów typów wyliczeniowych nazywaj stosując [Hungarian Notation](https://en.wikipedia.org/wiki/Hungarian_notation). Pamiętając o tym by nie stosować zbyt wielu znaków w prefiksie.

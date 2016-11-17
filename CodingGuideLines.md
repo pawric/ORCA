@@ -514,5 +514,9 @@ W miarę możliwości unikamy tworzenia procedur oraz triggerów (z wyjątkiem [
 ###### [Zasada [N028](#zasada-n028)]
 aktualizacje
 
+###### [Zasada [N029](#zasada-n029)] - P. Imiela
+Jeśli chcemy aby pole zawierało jakąś wartość logiczną (boolean) warto to zrobić przy użyciu "Domain" (trzeba by ustalić jakki - ja używam TAKNIE)
+
+
 
 **[Powrót do góry](#spis-treści)**

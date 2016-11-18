@@ -39,6 +39,7 @@ Niedopuszczalna jest zmiana numeracji zasad uznanych jako obowiązujące.
 ## Obowiązujące reguły
 
 
+
 ## Generalna konwencja
 
 ###### [Zasada [N001](#zasada-n001)]
@@ -219,7 +220,12 @@ Unikaj generowania zbędnych zależności. W sekcji **uses** zarówno w części
 Zawsze nadawaj identyfikatorom znaczenie odpowiednie do tego co reprezentują nawet jeśli to spowoduje potrzebę wygenerowania długiej nazwy identyfikatora.
 
 ###### [Zasada [N007](#zasada-n007)]
-**DNML** (*Do not mix languages*) 
+**DNML** (*Do not mix languages*). Nie kombinuj nazw identyfikatorów używając w jednej części nazwy polskiej w innej nazwy angielskiej. Istnieją jednak dopuszczalne, poniższe odstępstwa od tej reguły:
+
+- sposób nazewnictwa modułów opisany w [N002](#zasada-n002),
+
+*Dlaczego?*: Jest to po prostu nieczytelne i trunde do wymówienia.
+ 
 
 ###### [Zasada [N008](#zasada-n008)]
 Niedopuszczalne jest stosowanie nazw identyfikatorów jednoliterowych nie mówiących nic. Wyjątek stanowią lokalne zmienne kontrolne pętli.
@@ -260,7 +266,7 @@ end;
 Stosuj notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) zwracając uwagę na to by każde nowe słowo w nazwie identyfikatora zaczynało się z nowej litery.
 
 ###### [Zasada [N010](#zasada-n010)]
-Unikaj **"_"(underscore)** w nazwach identyfikatorów wyjątkami od tej reguły są [N010](#zasada-n010) oraz [N011](#zasada-n011).
+Unikaj **"_"(underscore)** w nazwach identyfikatorów wyjątkami od tej reguły są [N011](#zasada-n011) oraz [N012](#zasada-n012).
 
 *Dlaczego?*: Taka konwencja.
 
@@ -331,7 +337,7 @@ end;
 - Podczas definiowania nazwy stałych globalnych używaj notacji w postaci WIELKICH_LITER_ROZDZIELONYCH_UNDERSCORE.
 - Podczas definiowania nazwy stałych lokalnych używaj notacji [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) poprzedzając ją znakiem *c* (małe c - od const).
 
-*Dlaczego?* : Jest to efekt wynikaów ankiety przeprowadzonej w dniu 2016-11-02 pośród członków zespołu.
+*Dlaczego?* : Jest to efekt wyników ankiety przeprowadzonej w dniu 2016-11-02 pośród członków zespołu.
 
 **Przykład**
 
@@ -438,6 +444,7 @@ Podczas nazywania typów stosuj zawsze [N009](#zasada-n009).
 **[Powrót do góry](#spis-treści)**
 
 ## Nazewnictwo metod funkcji procedur
+
 
 ## Baza danych 
 

@@ -16,10 +16,16 @@ Zmiany w dokumencie należy wprowadzać z częstotliwością odpowiadającą pos
 	
 Formatowanie dokumentu powinno być zgodne z [GitHub Mark Down](https://guides.github.com/features/mastering-markdown/). Przydatne do tego narzędzie to (między innymi): [stackedit](https://stackedit.io/).
 
-Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i chcemy zanotować to tutaj należy podać przykład zarówno błędnego jak i poprawnego kodu.
+Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i chcemy zanotować to tutaj należy podać przykład zarówno błędnego jak i poprawnego kodu. Wprowadzane zmiany powinny rozróżniać definiowane zasady i odpowiednio je numerować. W tej chwili rozróżniamy trzy grupy zasad:
+
+- styl (prefix numeracji **S**),
+- zasada (ogólna zasada dotycząca kodu), w tym przypadku może pojawić się nowe grupowanie zasad. Aktualnie dla zasad dotyczących nazewnictwa stosujemy prefix **N**,
+- baza danych (ogólne zasady dotyczące projektowania, utrzymania bazy danych). Tutaj stosujemy prefix **BD**.
+
+Niedopuszczalna jest zmiana numeracji zasad uznanych jako obowiązujące.
 
 ## Spis treści.
-
+0. [Obowiązujące reguły](#obowiązujące-reguły)
 1. [Generalna konwencja](#generalna-konwencja)
 2. [Generalny styl kodowania](#generalny-styl-kodowania)
 3. [Komentowanie kodu](#komentowanie-kodu)
@@ -29,6 +35,9 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 7. [Nazewnictwo typów](#nazewnictwo-typów)
 8. [Nazewnictwo metod funkcji procedur](#nazewnictwo-metod-funkcji-procedur)
 9. [Baza danych](#baza-danych)
+
+## Obowiązujące reguły
+
 
 ## Generalna konwencja
 
@@ -171,7 +180,9 @@ gdzie
 - **NazwaModułu** jest polską nazwą stosowną do domeny, której dany moduł dotyczy,
 - **WyróznikModułu** jest angielską specyfikacją tego co moduł zawiera.
 	
-Budując pełną nazwę pliku modułu zawsze używaj całych słów (zarówno w **NazwieModułu** jak i **WyróżnikuModułu**), bedących rzeczownkiami.
+Wyjątkiem od tej zasady są moduły zawierające klasę lub implementacje interfejsu - w takim wypadku nie stosujemy **WyróżnikaModułu**.
+
+Budując pełną nazwę pliku modułu zawsze używaj całych słów (zarówno w **NazwieModułu** jak i **WyróżnikuModułu**), bedących rzeczownkiami. Generalnie budując nazwę modułu trzeba wykazać się odpowiednim wyczuciem i zbudować taką nazwę by jasno wskazaywała czego tam oczekiwać.
 
 **Przykłady nazewnictwa modułów:**
 ````pascal
@@ -179,13 +190,13 @@ unit uKlientForm.pas; //moduł zawierający kod formy związany domenowo z klien
 unit uKlientFrame.pas //moduł zawierający kod ramki związany domenowo z klientem
 unit uKlientDataModule.pas; //moduł pochodny od TDataModule związany domenowo 
 unit uMojaWlasnaSuperKlasaObfitosciInterface.pas; //moduł zawierający deklarację interfejsu 
-unit uMojaWlasnaSuperKlasaObfitosciClass.pas; //moduł zawierający kod klasy obfitości  ??
+unit uMojaWlasnaSuperKlasaObfitosci.pas; //moduł zawierający kod klasy obfitości  ??
 unit uKlientList.pas; //moduł zawierający listę, której elemntami są encje typu TKlient
 ````
 
 *Dlaczego?*: Istniejący kod, z kórym pracujemy nie posiadał jakiejś sztywnej konwencji w tym zakresie w związku z tym powstała masa modułów, których nazwy często są mylne, lub nie mówiące nic na pierwszy rzut, a czasem wręcz trudne do wymówienia. Uchwałą z dnia 2016-10-28 na spotkaniu zespołu została ustalna taka a nie inna konwencja nazewnictwa modułów i należy ją stosować. W przypadku gdy modyfikujemy jakiś moduł, którego nazwa nie spełnia wymogów tej konwencji, jesteśmy zobligowani do dostosowania jego nazwy do nowej konwencji oczywiście w miarę możliwości.
 
-*Informacja*: Jest to odstępstwo od informacji dotyczących nazywania plików źródłowych zawratych w punktach [2.0](http://edn.embarcadero.com/article/10280#2.0) i [2.1](http://edn.embarcadero.com/article/10280#2.1) (**OPSG**)[#generalna-konwencja].
+*Informacja*: Jest to odstępstwo od informacji dotyczących nazywania plików źródłowych zawratych w punktach [2.0](http://edn.embarcadero.com/article/10280#2.0) i [2.1](http://edn.embarcadero.com/article/10280#2.1) [**OPSG**](#generalna-konwencja).
 
 **[Powrót do góry](#spis-treści)**
 
@@ -208,6 +219,9 @@ Unikaj generowania zbędnych zależności. W sekcji **uses** zarówno w części
 Zawsze nadawaj identyfikatorom znaczenie odpowiednie do tego co reprezentują nawet jeśli to spowoduje potrzebę wygenerowania długiej nazwy identyfikatora.
 
 ###### [Zasada [N007](#zasada-n007)]
+**DNML** (*Do not mix languages*) 
+
+###### [Zasada [N008](#zasada-n008)]
 Niedopuszczalne jest stosowanie nazw identyfikatorów jednoliterowych nie mówiących nic. Wyjątek stanowią lokalne zmienne kontrolne pętli.
 		
 Przykład błędny:
@@ -242,15 +256,15 @@ begin
 end;
 ````
 	
-###### [Zasada [N008](#zasada-n008)]
+###### [Zasada [N009](#zasada-n009)]
 Stosuj notację [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) zwracając uwagę na to by każde nowe słowo w nazwie identyfikatora zaczynało się z nowej litery.
 
-###### [Zasada [N009](#zasada-n009)]
+###### [Zasada [N010](#zasada-n010)]
 Unikaj **"_"(underscore)** w nazwach identyfikatorów wyjątkami od tej reguły są [N010](#zasada-n010) oraz [N011](#zasada-n011).
 
 *Dlaczego?*: Taka konwencja.
 
-###### [Zasada [N010](#zasada-n010)]
+###### [Zasada [N011](#zasada-n011)]
 **Zmienne lokalne** w metodach zawsze nazywaj zaczynając od prefixu **v_**.
 
 *Dlaczego?* Aby nie pomiksować się czasem z nazwami argumentów czy stałych globalnych funkjonujących już w kodzie. W przypadku gdy lokalna zmienna metody będzie miała taką samą nazwę jak zmienna globalna dostępna w scope kompilator zawsze będzie używał zmiennej globalnej.
@@ -281,7 +295,7 @@ begin
 end;
 ````
 
-###### [Zasada [N011](#zasada-n011)]
+###### [Zasada [N012](#zasada-n012)]
 **Zmienne globalne** (o ile życie zmusi Cię do ich zastosowania - czyli masz przystawiony pistolet do głowy i każą Ci zdefiniować zmienną glablaną) nazywaj zawsze zaczynając od prefixu **g_**.
 
 *Dlaczego?*: Aby nie nadpisać wartości zmiennych lokalnych metod lub ich argumentów występujących w zasięgu scope.
@@ -312,7 +326,7 @@ begin
 end;
 ````
 
-###### [Zasada [N012](#zasada-n012)]
+###### [Zasada [N013](#zasada-n013)]
 
 - Podczas definiowania nazwy stałych globalnych używaj notacji w postaci WIELKICH_LITER_ROZDZIELONYCH_UNDERSCORE.
 - Podczas definiowania nazwy stałych lokalnych używaj notacji [PascalCase/UpperCamelCase](https://pl.wikipedia.org/wiki/PascalCase) poprzedzając ją znakiem *c* (małe c - od const).
@@ -343,7 +357,7 @@ end;
 end.
 ````
 
-###### [Zasada [N013](#zasada-n013)]
+###### [Zasada [N014](#zasada-n014)]
 Nazwę prywatnego atrybutu klasy zawsze poprzedzaj literą **F**.
 
 **Przykłady** 
@@ -364,8 +378,8 @@ type
   end;
 ````
 
-###### [Zasada [N013](#zasada-n013)]
-Nazwy publicznych atrybutów nazywaj stosując [N008](#zasada-n008).
+###### [Zasada [N015](#zasada-n015)]
+Nazwy publicznych atrybutów nazywaj stosując [N009](#zasada-n009).
 
 **Przykłady**
 
@@ -386,7 +400,7 @@ type
   end;  
 ````
 
-###### [Zasada [N014](#zasada-n014)]
+###### [Zasada [N016](#zasada-n016)]
 Nazwy elementów typów wyliczeniowych nazywaj stosując [Hungarian Notation](https://en.wikipedia.org/wiki/Hungarian_notation). Pamiętając o tym by nie stosować zbyt wielu znaków w prefiksie.
 
 **Przykład błędny**
@@ -406,20 +420,20 @@ type
 
 ## Nazewnictwo typów
 
-###### [Zasada [N015](#zasada-n015)]
+###### [Zasada [N017](#zasada-n017)]
 Nazwa typu, kóry definiujesz zawsze powinna zaczynać sie od znaku **T**. Wyjątkiami od tej reguły są interfejsy (**interfaces**) i wyjątki (**exceptions**).
 
-###### [Zasada [N016](#zasada-n016)]
+###### [Zasada [N017](#zasada-n017)]
 Nazwa interfejsu musi zaczynać sie od znaku **I**.
 
-###### [Zasada [N017](#zasada-n017)]
+###### [Zasada [N018](#zasada-n018)]
 Nazwa wyjątku musi zaczynać się od znaku **E**.
 
-###### [Zasada [N018](#zasada-n018)]
+###### [Zasada [N019](#zasada-n019)]
 Nazwa typu, zawsze powinna być rzeczownikiem.
 
-###### [Zasada [N019](#zasada-n019)]
-Podczas nazywania typów stosuj zawsze [N008](#zasada-n008). 
+###### [Zasada [N020](#zasada-n021)]
+Podczas nazywania typów stosuj zawsze [N009](#zasada-n009). 
  
 **[Powrót do góry](#spis-treści)**
 
@@ -429,19 +443,19 @@ Podczas nazywania typów stosuj zawsze [N008](#zasada-n008).
 
 PONIŻSZE ZASADY DO PRZEGADANIA!!!
 
-###### [Zasada [N020](#zasada-n020)]
+###### [Zasada [BD001](#zasada-bd001)]
 Nazwy tabel oraz kolumn powinny być takie same jak nazwy w modelu (tabela w liczbie mnogiej)
 
-###### [Zasada [N021](#zasada-n021)]
+###### [Zasada [BD002](#zasada-bd002)]
 Identifikatory tabeli (primary key) nazywamy tak jak tabela ale w liczbie pojedynczej i z prefiksem ID
 
-###### [Zasada [N022](#zasada-n022)]
+###### [Zasada [BD003](#zasada-bd003)]
 Dla utrzymania spójności danych w BD, tworzymy klucze główne, klucze obce, unikalne pola (UNIQUE), itd.
 
-###### [Zasada [N023](#zasada-n023)]
+###### [Zasada [BD004](#zasada-bd004)]
 Dla określenia daty w BD używamy typu TIMESTAMP (nigdy string!!!)
 
-**Przykład dla zasad N020 - N022**
+**Przykład dla zasad B001 - B004**
 
 **PASCAL**
 ````pascal
@@ -483,7 +497,7 @@ ALTER TABLE ZASOBY ADD CONSTRAINT FK_GRUPY_JEDN FOREIGN KEY (ID_REZERWACJA) REFE
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 ````
 
-###### [Zasada [N025](#zasada-n025)]
+###### [Zasada [BD005](#zasada-bd005)]
 Dla utrzymania spójności danych tworzymy triggery do inicjowania kluczy głównych
 
 SQL
@@ -491,7 +505,7 @@ SQL
 	CREATE VIEW REZERWACJE_VIEW ...
 ````
 
-###### [Zasada [N026](#zasada-n026)]
+###### [Zasada [BD006](#zasada-bd006)]
 Nazwy widoków określamy z sufiksem View, triggerów - prefiksem TR plus nazwa tabeli, której dotyczy (w niektórych pojektach używamy TG więc używamy tego) generatorów - prefiksem GEN plus nazwa identyfikatora
 
 SQL
@@ -508,10 +522,10 @@ BEGIN
 END^
 ````
 
-###### [Zasada [N027](#zasada-n027)]
-W miarę możliwości unikamy tworzenia procedur oraz triggerów (z wyjątkiem [N026](#zasada-n026)). Logikę powinniśmy realizować w kodzie domeny. Poprzez realizowanie logiki w jendym miejscu, utrzymanie projektu stanie się prostrze i czytelniejsze.  
+###### [Zasada [BD007](#zasada-bd007)]
+W miarę możliwości unikamy tworzenia procedur oraz triggerów (z wyjątkiem [B006](#zasada-b006)). Logikę powinniśmy realizować w kodzie domeny. Poprzez realizowanie logiki w jendym miejscu, utrzymanie projektu stanie się prostrze i czytelniejsze.  
 
-###### [Zasada [N028](#zasada-n028)]
+###### [Zasada [BD008](#zasada-bd008)]
 aktualizacje
 
 ###### [Zasada [N029](#zasada-n029)] - P. Imiela

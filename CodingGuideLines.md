@@ -38,12 +38,41 @@ Niedopuszczalna jest zmiana numeracji zasad uznanych jako obowiązujące.
 
 ## Obowiązujące reguły
 
-
+Link do reguły| Odstępstwa
+------------- | ----------
+[S001](#styl-s001) | Brak
+[S002](#styl-s002) | Brak
+[S003](#styl-s003) | Brak
+[S004](#styl-s004) | Brak
+[S005](#styl-s005) | Brak
+[S006](#styl-s006) | Brak
+[S010](#styl-s010) | Brak
+[S011](#styl-s011) | Brak
+[S012](#styl-s012) | Brak
+[S013](#styl-s013) | Brak
+[N001](#zasada-n001) | Brak
+[N002](#zasada-n002) | Brak
+[N004](#zasada-n004) | Brak
+[N005](#zasada-n005) | Brak
+[N006](#zasada-n006) | Brak
+[N008](#zasada-n008) | Brak
+[N009](#zasada-n009) | Brak
+[N011](#zasada-n011) | Brak
+[N012](#zasada-n012) | Brak
+[N013](#zasada-n013) | Brak
+[N014](#zasada-n014) | Brak
+[N015](#zasada-n015) | Brak
+[N017](#zasada-n017) | Brak
+[N018](#zasada-n018) | Brak
+[N019](#zasada-n019) | Brak 
+[N020](#zasada-n020) | Brak
+[N021](#zasada-n021) | Brak
 
 ## Generalna konwencja
 
-###### [Zasada [N001](#zasada-n001)]
-Jeśli nie wiesz jak kod powinien wyglądać w konkretnej sytuacji a nie jest to sprecyzowane w tym dokumencie zawsze posługuj sie [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280).
+###### [Zasada [N001](#zasada-n001)] 
+
+Jeśli nie wiesz jak kod powinien wyglądać w konkretnej sytuacji a nie jest to sprecyzowane w tym dokumencie zawsze posługuj się [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280).
 
 *Dlaczego?*: Punktem wyjścia do wypracowania zasad produkowania kodu w naszych projektach jest [Object Pascal Style Guide](http://edn.embarcadero.com/article/10280) ustalamy jedynie odstępstwa od zasad tam wskazanych. A w przypadkach, które nie są określone jeszcze w tym dokumencie nadrzędny jest Object Pascal Style Guide, który w dalszej części będzie zastępowany skrótem (**OPSG**).
 
@@ -429,22 +458,83 @@ type
 ###### [Zasada [N017](#zasada-n017)]
 Nazwa typu, kóry definiujesz zawsze powinna zaczynać sie od znaku **T**. Wyjątkiami od tej reguły są interfejsy (**interfaces**) i wyjątki (**exceptions**).
 
-###### [Zasada [N017](#zasada-n017)]
+###### [Zasada [N018](#zasada-n018)]
 Nazwa interfejsu musi zaczynać sie od znaku **I**.
 
-###### [Zasada [N018](#zasada-n018)]
+###### [Zasada [N019](#zasada-n019)]
 Nazwa wyjątku musi zaczynać się od znaku **E**.
 
-###### [Zasada [N019](#zasada-n019)]
+###### [Zasada [N020](#zasada-n020)]
 Nazwa typu, zawsze powinna być rzeczownikiem.
 
-###### [Zasada [N020](#zasada-n021)]
+###### [Zasada [N021](#zasada-n021)]
 Podczas nazywania typów stosuj zawsze [N009](#zasada-n009). 
  
 **[Powrót do góry](#spis-treści)**
 
 ## Nazewnictwo metod funkcji procedur
 
+Budując nazwę metody/funkcji czy procedury pamiętaj o tym, że to także identyfikator. Dlatego należy stosować reguły opisane w sekcji [nazewnictwo identyfikatorów](#nazewnictwo-identyfikatorów). Niemniej tutaj zaznaczamy kilka specyficznych rodzajów metod/procedur czy funkcji które posiadają specyficzną konwencję.
+
+Należy także zaznaczyć, że większość reguł zapisanych tutaj jest wyjątkiem od reguły [N007](zasada-n007).
+
+###### [Zasada [N022](#zasada-n022)]
+Nazwa procedury, funckji, metody powinna jasno wskazywać na czynność, którą wykonuje blok programu w niej zawarty. Oznacza to to, że w nazwie metody powinieneś użyć czasownika określającego czynność.
+
+###### [Zasada [N023](#zasada-n023)]
+Jeśli budujesz jakiekolwiek elementy API dopuszczalne jest użycie nazewnictwa w języku Angielskim z zachowaniem wszystkich innych reguł dotyczących nazewnictwa.
+
+###### [Zasada [N024](#zasada-n024)]
+Jeśli budujesz jakiekolwiek elementy API i używasz nazewnictwa w języku angielskim to nazewnictwo metod powinno być zgodne z API dostarczanym przez język. 
+
+###### [Zasada [N025](#zasada-n025)]
+Jeśli nazywasz metodę realizującą funkcjonalność domenową (biznesową) nie dopuszczalne jest stosowanie języka innego niż polski. Dodatkowo nazwa takiej metody powinna jak najdokładniej odwzorowywać nazwę czynności realizowanej.
+
+###### [Zasada [N026](#zasada-n026)]
+Jeśli nazywasz funkcję realizującą funkcjonalność domenową (biznesową) w której wyniku otrzymamy wartość logiczną użyj prefiksu **Czy**.
+
+###### [Zasada [N027](#zasada-n027)]
+Nie używaj prefixów *Set* i *Get* dla metod innych, niż setter.
+
+*Dlaczego?* : Jest to mylące. Stosując długo konwencję Delphi możesz z przyzwyczajenia szukać property, które te metody ustawiają.
+
+###### [Zasada [N028](#zasada-n028)]
+Settery i Gettery zawsze nazywaj zaczynając od prefixu (odpowiednio) **Set** i **Get**, po czym wprowadź nazwę property (nie pola).
+
+*Dlaczego?*: Jest to ogólnie przyjęta konwencja (także w innych językach). Wykształciła ona pojęcie *setter* i *getter* dlatego aby jasno wskazać że te metody są powiązane z jakimś property używa się takiego zapisu a nie innego. Nie ma żadnej konwencji nazw które mogłyby wytłumaczyć zapis w przykładzie błędnym bo nie ma przecież getownika czy dajownika :)  
+
+*Informacja* : Reguła ta jest odstępstwem od reguły [N007](zasada-n007).
+
+**Przykład poprawny**
+
+````delphi
+type
+	TPracownik = class(TObject)
+	private
+		FWiek: Integer;
+	protected 
+		function GetWiekPracownika(): Integer;
+		procedure SetWiekPracownika(AWiek: Integer);
+	published 
+		property WiekPracownika: Integer read GetWiekPracownika SetWiekPracownika;
+	end;
+````
+
+
+**Przykład błędny**
+
+````delphi
+type
+	TPracownik = class(TObject)
+	private
+		FWiek: Integer;
+	protected 
+		function DajWiekPracownika(): Integer;
+		procedure UstawWiekPracownika(AWiek: Integer);
+	published 
+		property WiekPracownika: Integer read DajWiekPracownika UstawWiekPracownika;
+	end;
+````
 
 ## Baza danych 
 
@@ -541,3 +631,4 @@ Jeśli chcemy aby pole zawierało jakąś wartość logiczną (boolean) warto to
 
 
 **[Powrót do góry](#spis-treści)**
+

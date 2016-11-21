@@ -29,6 +29,7 @@ Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i ch
 7. [Nazewnictwo typów](#nazewnictwo-typów)
 8. [Nazewnictwo metod funkcji procedur](#nazewnictwo-metod-funkcji-procedur)
 9. [Baza danych](#baza-danych)
+10. [Nazewnictwo katalogów](#nazewnictwo-katalogów)
 
 ## Generalna konwencja
 
@@ -514,5 +515,26 @@ W miarę możliwości unikamy tworzenia procedur oraz triggerów (z wyjątkiem [
 ###### [Zasada [N028](#zasada-n028)]
 aktualizacje
 
+
+**[Powrót do góry](#spis-treści)**
+
+**Nazewnictwo katalogów
+
+###### [Zasada [D001](#zasada-d001)]
+Tworzony kod źródłowy powinien być dzielony na katalogi.
+
+###### [Zasada [D002](#zasada-d002)]
+Nazwy katalogów i ich zawartość powinny wynikać z oprogramowywanej domeny.
+
+###### [Zasada [D003](#zasada-d003)]
+Obszerne zagadnienia domenowe należy dzielić na podkatalogi.
+
+###### [Zasada [D004](#zasada-d004)]
+Ilość plików w katalogu nie podlega ścisłym ograniczeniom, ale należy zachować rozsądny umiar.
+
+*Dlaczego?* : Podział kodu pomiędzy katalogi wg domeny ma następujące plusy:
+- wysoka modularność, klasy blisko ze sobą powiązane znajdują się w jednej lokalizacji
+- łatwa nawigacja po kodzie, modyfikując funkcjonalność nie trzeba szukać plików w kilku katalogach
+- zachowanie wysokiej abstrakcji, katalogi prezentują dziedzinę, a nie szczegóły implementacji
 
 **[Powrót do góry](#spis-treści)**

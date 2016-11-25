@@ -16,11 +16,12 @@ Zmiany w dokumencie należy wprowadzać z częstotliwością odpowiadającą pos
 	
 Formatowanie dokumentu powinno być zgodne z [GitHub Mark Down](https://guides.github.com/features/mastering-markdown/). Przydatne do tego narzędzie to (między innymi): [stackedit](https://stackedit.io/).
 
-Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i chcemy zanotować to tutaj należy podać przykład zarówno błędnego jak i poprawnego kodu. Wprowadzane zmiany powinny rozróżniać definiowane zasady i odpowiednio je numerować. W tej chwili rozróżniamy trzy grupy zasad:
+Zawsze należy załączyć przykłady. Oznacza to, że jeśli ustalamy coś i chcemy zanotować to tutaj należy podać przykład zarówno błędnego jak i poprawnego kodu. Wprowadzane zmiany powinny rozróżniać definiowane zasady i odpowiednio je numerować. W tej chwili rozróżniamy cztery grupy zasad:
 
 - styl (prefix numeracji **S**),
 - zasada (ogólna zasada dotycząca kodu), w tym przypadku może pojawić się nowe grupowanie zasad. Aktualnie dla zasad dotyczących nazewnictwa stosujemy prefix **N**,
-- baza danych (ogólne zasady dotyczące projektowania, utrzymania bazy danych). Tutaj stosujemy prefix **BD**.
+- baza danych (ogólne zasady dotyczące projektowania, utrzymania bazy danych). Tutaj stosujemy prefix **BD**,
+- nazewnictwo katalogów (ogólne wskazówki dotyczące nazywania katalogów w projektach) stosujemy prefix **D**.
 
 Niedopuszczalna jest zmiana numeracji zasad uznanych jako obowiązujące.
 
